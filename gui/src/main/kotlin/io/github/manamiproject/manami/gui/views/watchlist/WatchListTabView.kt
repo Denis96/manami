@@ -6,6 +6,7 @@ import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.gui.components.HyperlinkBuilder.buildHyperlinkFrom
 import io.github.manamiproject.manami.gui.components.Icons.createIconDelete
 import io.github.manamiproject.manami.gui.components.Icons.createIconFilterList
+import io.github.manamiproject.manami.gui.controller.WatchListTabController
 import javafx.collections.FXCollections
 import javafx.geometry.Pos.CENTER
 import javafx.geometry.Pos.CENTER_LEFT
@@ -22,11 +23,24 @@ class WatchListTabView : View() {
     override val root = TabPane()
 
     private val manami = Manami
-    private val watchListEntries = FXCollections.observableArrayList<WatchListEntry>()
+    private val watchListTabController: WatchListTabController by inject()
     private var titleColumn: TableColumn<WatchListEntry, Title>? = null
 
+    init {
+        watchListTabController.watchListEntries.onChange {
+            watchListTabController.watchListEntries
+                    .map(WatchListEntry::title)
+                    .map { title -> Pair(title, title.length) }
+                    .maxBy { titleLengthPair -> titleLengthPair.second }
+                    ?.let { titleLengthPair ->
+                        val width = Text(titleLengthPair.first).layoutBounds.width + SPACER
+                        titleColumn?.prefWidth = width
+                    }
+        }
+    }
+
     val tab = Tab("Watch List").apply {
-        content = tableview(watchListEntries) {
+        content = tableview(watchListTabController.watchListEntries) {
             column("Thumbnail", WatchListEntry::thumbnail).cellFormat {
                 graphic = imageview(this.rowItem.thumbnail.toString())
             }
@@ -57,22 +71,5 @@ class WatchListTabView : View() {
                 }
             }
         }
-    }
-
-    fun updateEntries() {
-        watchListEntries.clear()
-        watchListEntries.addAll(manami.fetchWatchList()) //FIXME: probably too expensive on huge lists
-        resizeTitleColumn()
-    }
-
-    private fun resizeTitleColumn() {
-        watchListEntries
-            .map(WatchListEntry::title)
-            .map { title -> Pair(title, title.length) }
-            .maxBy { titleLengthPair -> titleLengthPair.second }
-            ?.let { titleLengthPair ->
-                val width = Text(titleLengthPair.first).layoutBounds.width + SPACER
-                titleColumn?.prefWidth = width
-            }
     }
 }

@@ -2,7 +2,7 @@ package io.github.manamiproject.manami.gui.views.animelist
 
 import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.entities.*
-import javafx.collections.FXCollections
+import io.github.manamiproject.manami.gui.controller.AnimeListTabController
 import javafx.event.EventHandler
 import javafx.scene.control.*
 import tornadofx.*
@@ -11,10 +11,10 @@ class AnimeListTabView : View() {
     override val root = TabPane()
 
     private val manami = Manami
-    private val animeEntries = FXCollections.observableArrayList<Anime>()
+    private val animeListTabController: AnimeListTabController by inject()
 
     val tab = Tab("Anime List").apply {
-        content = tableview(animeEntries) {
+        content = tableview(animeListTabController.animeList) {
             isEditable = true
 
             column("Title", Anime::title).apply {
@@ -65,10 +65,5 @@ class AnimeListTabView : View() {
             //cmiDeleteEntry.graphic = Icons.createIconDelete()
             //TODO: contextmenu entry for deleting an entry
         }
-    }
-
-    fun updateAnimeEntries() {
-        animeEntries.clear()
-        animeEntries.addAll(manami.fetchAnimeList()) //FIXME: probably too expensive on huge lists
     }
 }
