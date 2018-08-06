@@ -2,10 +2,10 @@ package io.github.manamiproject.manami.gui.views
 
 import io.github.manamiproject.manami.common.isValidFile
 import io.github.manamiproject.manami.core.Manami
-import io.github.manamiproject.manami.entities.Anime
-import io.github.manamiproject.manami.entities.FilterListEntry
-import io.github.manamiproject.manami.entities.WatchListEntry
-import io.github.manamiproject.manami.gui.components.FileChoosers
+import io.github.manamiproject.manami.gui.components.FileChoosers.showExportDialog
+import io.github.manamiproject.manami.gui.components.FileChoosers.showImportFileDialog
+import io.github.manamiproject.manami.gui.components.FileChoosers.showOpenFileDialog
+import io.github.manamiproject.manami.gui.components.FileChoosers.showSaveAsFileDialog
 import io.github.manamiproject.manami.gui.components.Icons.createIconBranchFork
 import io.github.manamiproject.manami.gui.components.Icons.createIconClipboardCheck
 import io.github.manamiproject.manami.gui.components.Icons.createIconExit
@@ -22,24 +22,24 @@ import io.github.manamiproject.manami.gui.components.Icons.createIconTags
 import io.github.manamiproject.manami.gui.components.Icons.createIconThumbsUp
 import io.github.manamiproject.manami.gui.components.Icons.createIconUndo
 import io.github.manamiproject.manami.gui.components.Icons.createIconWatchList
+import io.github.manamiproject.manami.gui.controller.MainController
 import io.github.manamiproject.manami.gui.views.UnsavedChangesDialogView.DialogDecision.*
 import io.github.manamiproject.manami.gui.views.animelist.AnimeListTabView
+import io.github.manamiproject.manami.gui.views.searchresults.SearchResultView
 import io.github.manamiproject.manami.gui.views.watchlist.WatchListTabView
 import javafx.application.Platform
 import javafx.event.EventHandler
 import javafx.scene.Parent
 import javafx.scene.control.*
 import javafx.stage.Stage
-import org.controlsfx.control.textfield.AutoCompletionBinding
 import org.controlsfx.control.textfield.TextFields
 import tornadofx.View
-import tornadofx.runLater
+import tornadofx.action
 import java.nio.file.Path
 import java.nio.file.Paths
 
-private const val APPLICATION_NAME = "Manami"
+
 private const val FILE_SUFFIX_XML = ".xml"
-private const val DIRTY_FLAG = "*"
 
 class MainView : View() {
 
@@ -47,6 +47,8 @@ class MainView : View() {
 
     private val animeListTabView: AnimeListTabView by inject()
     private val watchListTabView: WatchListTabView by inject()
+    private val searchResultView: SearchResultView by inject()
+    private val mainController: MainController by inject()
 
     private val tabPane: TabPane by fxid()
     private val miNewList: MenuItem by fxid()
@@ -57,8 +59,8 @@ class MainView : View() {
     private val miSave: MenuItem by fxid()
     private val miSaveAs: MenuItem by fxid()
     private val miExit: MenuItem by fxid()
-    private val miRedo: MenuItem by fxid()
     private val miUndo: MenuItem by fxid()
+    private val miRedo: MenuItem by fxid()
     private val miExport: MenuItem by fxid()
     private val miRelatedAnime: MenuItem by fxid()
     private val miRecommendations: MenuItem by fxid()
@@ -72,28 +74,34 @@ class MainView : View() {
     private val btnSearch: Button by fxid()
 
     private val manami = Manami
-    private var autocompletionBinding: AutoCompletionBinding<String> = TextFields.bindAutoCompletion(txtSearchString, setOf())
 
-    init {
-        title = APPLICATION_NAME
-        initMenuItemGlyphs()
-    }
 
     override fun onDock() {
         this.currentStage?.let {
             it.isMaximized = true
 
-            runLater {
-                initNativeCloseButton(it)
-            }
+            initNativeCloseButton(it)
         }
     }
 
-    private fun initNativeCloseButton(stage: Stage) {
-        Platform.setImplicitExit(false)
-        stage.onCloseRequest = EventHandler {
-            manami.exit()
-        }
+    init {
+        TextFields.bindAutoCompletion(txtSearchString, mainController.autoCompleteTitles)
+        initProperties()
+        initMenuItemGlyphs()
+        initSearchButton()
+    }
+
+    private fun initProperties() {
+        miImport.disableProperty().bindBidirectional(mainController.disableImportMenuItemProperty)
+        miCheckList.disableProperty().bindBidirectional(mainController.disableCheckListMenuItemProperty)
+        miSave.disableProperty().bindBidirectional(mainController.disableSaveMenuItemProperty)
+        miSaveAs.disableProperty().bindBidirectional(mainController.disableSaveAsMenuItemProperty)
+        miUndo.disableProperty().bindBidirectional(mainController.disableUndoMenuItemProperty)
+        miRedo.disableProperty().bindBidirectional(mainController.disableRedoMenuItemProperty)
+        miExport.disableProperty().bindBidirectional(mainController.disableExportMenuItemProperty)
+        miRelatedAnime.disableProperty().bindBidirectional(mainController.disableRelatedAnimeMenuItemProperty)
+        miRecommendations.disableProperty().bindBidirectional(mainController.disableRecommendationsMenuItemProperty)
+        titleProperty.bindBidirectional(mainController.titleProperty)
     }
 
     private fun initMenuItemGlyphs() {
@@ -115,6 +123,25 @@ class MainView : View() {
         miAbout.graphic = createIconQuestion()
     }
 
+    private fun initSearchButton() {
+        btnSearch.action {
+            if (!tabPane.tabs.contains(searchResultView.tab)) {
+                tabPane.tabs.addAll(searchResultView.tab)
+            }
+
+            tabPane.selectionModel.select(searchResultView.tab)
+        }
+    }
+
+
+    private fun initNativeCloseButton(stage: Stage) {
+        Platform.setImplicitExit(false)
+        stage.onCloseRequest = EventHandler {
+            manami.exit()
+        }
+    }
+
+
     fun exit() {
         checkFileSavedContext {
             manami.exit()
@@ -133,7 +160,7 @@ class MainView : View() {
     fun showNewEntry() = find(NewEntryView::class).openModal()
 
     fun open() {
-        FileChoosers.showOpenFileDialog(primaryStage)?.let {
+        showOpenFileDialog(primaryStage)?.let {
             if(it.isValidFile()) {
                 checkFileSavedContext {
                     manami.open(it)
@@ -144,7 +171,7 @@ class MainView : View() {
     }
 
     fun importFile() {
-        FileChoosers.showImportFileDialog(primaryStage)?.let {
+        showImportFileDialog(primaryStage)?.let {
             checkFileSavedContext {
                 manami.importFile(it)
             }
@@ -152,7 +179,7 @@ class MainView : View() {
     }
 
     fun export() {
-        FileChoosers.showExportDialog(primaryStage)?.let {
+        showExportDialog(primaryStage)?.let {
             manami.export(it)
         }
     }
@@ -166,7 +193,7 @@ class MainView : View() {
     }
 
     fun saveAs() {
-        FileChoosers.showSaveAsFileDialog(primaryStage)?.let {
+        showSaveAsFileDialog(primaryStage)?.let {
             val file: Path = it
 
             if (it.endsWith(FILE_SUFFIX_XML) || it.endsWith(FILE_SUFFIX_XML.toUpperCase())) {
@@ -204,9 +231,7 @@ class MainView : View() {
             tabPane.tabs.addAll(tab)
         }
 
-        runLater {
-            tabPane.selectionModel.select(tab)
-        }
+        tabPane.selectionModel.select(tab)
     }
 
     fun invalidateCache() {
@@ -214,47 +239,6 @@ class MainView : View() {
     }
 
     fun showAbout() = AboutView.showAbout()
-
-    fun updateFileNameInStageTitle() {
-        when(manami.getCurrentlyOpenedFile().isValidFile()) {
-            true -> runLater { title = "$APPLICATION_NAME - ${manami.getCurrentlyOpenedFile().fileName}" }
-            false -> runLater { title = APPLICATION_NAME }
-        }
-    }
-
-    fun animeListChanged() {
-        updateMenuItemsForImportAndExport()
-        updateMenuItemsForAdditionalLists()
-        updateAutocompletionEntries()
-    }
-
-    fun watchListChanged() {
-        updateMenuItemsForImportAndExport()
-        updateAutocompletionEntries()
-    }
-
-    fun filterListChanged() {
-        updateMenuItemsForImportAndExport()
-        updateAutocompletionEntries()
-    }
-
-    fun fileSavedStatusChanged() {
-        updateDirtyFlagInStageTitle()
-        updateMenuItemsForSaving()
-        updateMenuItemsForUndoAndRedo()
-    }
-
-    private fun updateDirtyFlagInStageTitle() {
-        if(!manami.isFileUnsaved() && title.endsWith(DIRTY_FLAG)) {
-            runLater {
-                title = title.substring(0, title.length-1)
-            }
-        } else if(manami.isFileUnsaved() && !title.endsWith(DIRTY_FLAG)) {
-            runLater {
-                title = "$title*"
-            }
-        }
-    }
 
     private fun checkFileSavedContext(command: () -> Unit) {
         var dialogDecision = NO
@@ -268,120 +252,7 @@ class MainView : View() {
         }
 
         if(dialogDecision != CANCEL) {
-            runAsync {
-                command()
-            }
+            command()
         }
-    }
-
-    private fun disableSaveMenuItem(value: Boolean) {
-        runLater {
-            miSave.isDisable = value
-            miSaveAs.isDisable = value
-        }
-    }
-
-    private fun disableImportMenuItem(value: Boolean) {
-        runLater {
-            miImport.isDisable = value
-        }
-    }
-
-    private fun disableExportMenuItem(value: Boolean) {
-        runLater {
-            miExport.isDisable = value
-        }
-    }
-
-    private fun disableCheckListMenuItem(value: Boolean) {
-        runLater {
-            miCheckList.isDisable = value
-        }
-    }
-
-    private fun disableRelatedAnimeMenuItem(value: Boolean) {
-        runLater {
-            miRelatedAnime.isDisable = value
-        }
-    }
-
-    private fun disableRecommendationsMenuItem(value: Boolean) {
-        runLater {
-            miRecommendations.isDisable = value
-        }
-    }
-
-    private fun disableUndoMenuItem(value: Boolean) {
-        runLater {
-            miUndo.isDisable = value
-        }
-    }
-
-    private fun disableRedoMenuItem(value: Boolean) {
-        runLater {
-            miRedo.isDisable = value
-        }
-    }
-
-    private fun updateMenuItemsForSaving() {
-        when(manami.isFileUnsaved()) {
-            true -> disableSaveMenuItem(false)
-            false -> disableSaveMenuItem(true)
-        }
-    }
-
-    private fun updateMenuItemsForImportAndExport() {
-        val animeListIsNotEmpty = manami.fetchAnimeList().isNotEmpty()
-        val watchListIsNotEmpty = manami.fetchWatchList().isNotEmpty()
-        val filterListIsNotEmpty = manami.fetchFilterList().isNotEmpty()
-
-        when(animeListIsNotEmpty || watchListIsNotEmpty || filterListIsNotEmpty) {
-            true -> {
-                disableImportMenuItem(true)
-                disableExportMenuItem(false)
-            }
-            false -> {
-                disableImportMenuItem(false)
-                disableExportMenuItem(true)
-            }
-        }
-    }
-
-    private fun updateMenuItemsForAdditionalLists() {
-        when(manami.fetchAnimeList().isNotEmpty()) {
-            true -> {
-                disableCheckListMenuItem(false)
-                disableRelatedAnimeMenuItem(false)
-                disableRecommendationsMenuItem(false)
-            }
-            false -> {
-                disableCheckListMenuItem(true)
-                disableRelatedAnimeMenuItem(true)
-                disableRecommendationsMenuItem(true)
-            }
-        }
-    }
-
-    private fun updateMenuItemsForUndoAndRedo() {
-        when(manami.doneCommandsExist()) {
-            true -> disableUndoMenuItem(false)
-            false -> disableUndoMenuItem(true)
-        }
-
-        when(manami.undoneCommandsExist()) {
-            true -> disableRedoMenuItem(false)
-            false -> disableRedoMenuItem(true)
-        }
-    }
-
-    private fun updateAutocompletionEntries() {
-        val animeListTitles = manami.fetchAnimeList().map(Anime::title).toSet()
-        val watchListTitles = manami.fetchWatchList().map(WatchListEntry::title).toSet()
-        val filterListTitles = manami.fetchFilterList().map(FilterListEntry::title).toSet()
-
-        val allTitles = animeListTitles.union(watchListTitles).union(filterListTitles)
-
-        autocompletionBinding.dispose()
-        autocompletionBinding = TextFields.bindAutoCompletion(txtSearchString, allTitles)
     }
 }

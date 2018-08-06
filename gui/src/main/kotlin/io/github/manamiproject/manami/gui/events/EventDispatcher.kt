@@ -5,6 +5,7 @@ import io.github.manamiproject.manami.cache.offlinedatabase.OfflineDatabaseUpdat
 import io.github.manamiproject.manami.core.events.FileSavedStatusChangedEvent
 import io.github.manamiproject.manami.core.events.OpenedFileChangedEvent
 import io.github.manamiproject.manami.gui.controller.AnimeListTabController
+import io.github.manamiproject.manami.gui.controller.MainController
 import io.github.manamiproject.manami.gui.controller.WatchListTabController
 import io.github.manamiproject.manami.gui.views.MainView
 import io.github.manamiproject.manami.gui.views.SplashScreenView
@@ -16,7 +17,7 @@ import tornadofx.Controller
 object EventDispatcher: Controller() {
 
     private val splashScreenView: SplashScreenView by inject()
-    private val mainView: MainView by inject()
+    private val mainController: MainController by inject()
     private val animeListTabController: AnimeListTabController by inject()
     private val watchListTabController: WatchListTabController by inject()
 
@@ -24,23 +25,23 @@ object EventDispatcher: Controller() {
     fun offlineDatabaseSuccessfullyUpdated(obj: OfflineDatabaseUpdatedSuccessfullyEvent) = splashScreenView.replaceWithMainView()
 
     @Subscribe
-    fun openFileChanged(obj: OpenedFileChangedEvent) = mainView.updateFileNameInStageTitle()
+    fun openFileChanged(obj: OpenedFileChangedEvent) = mainController.updateFileNameInStageTitle()
 
     @Subscribe
     fun animeListChanged(obj: AnimeListChangedEvent) {
         animeListTabController.updateAnimeEntries()
-        mainView.animeListChanged()
+        mainController.animeListChanged()
     }
 
     @Subscribe
     fun watchListChanged(obj: WatchListChangedEvent) {
         watchListTabController.updateEntries()
-        mainView.watchListChanged()
+        mainController.watchListChanged()
     }
 
     @Subscribe
-    fun filterListChanged(obj: FilterListChangedEvent) = mainView.filterListChanged()
+    fun filterListChanged(obj: FilterListChangedEvent) = mainController.filterListChanged()
 
     @Subscribe
-    fun fileChanged(obj: FileSavedStatusChangedEvent) = mainView.fileSavedStatusChanged()
+    fun fileChanged(obj: FileSavedStatusChangedEvent) = mainController.fileSavedStatusChanged()
 }

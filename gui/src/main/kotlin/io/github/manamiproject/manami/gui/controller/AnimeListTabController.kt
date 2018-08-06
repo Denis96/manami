@@ -2,13 +2,13 @@ package io.github.manamiproject.manami.gui.controller
 
 import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.entities.Anime
-import javafx.collections.FXCollections
+import javafx.collections.FXCollections.observableArrayList
 import tornadofx.Controller
 
 class AnimeListTabController : Controller() {
 
     private val manami = Manami
-    val animeList = FXCollections.observableArrayList<Anime>()
+    val animeList = observableArrayList<Anime>()
 
     fun updateAnimeEntries() {
         animeList.clear()
