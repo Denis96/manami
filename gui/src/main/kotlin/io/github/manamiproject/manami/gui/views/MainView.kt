@@ -68,7 +68,6 @@ class MainView : View() {
     private val miWatchList: MenuItem by fxid()
     private val miFilterList: MenuItem by fxid()
     private val miTagList: MenuItem by fxid()
-    private val miInvalidateCache: MenuItem by fxid()
     private val miAbout: MenuItem by fxid()
     private val txtSearchString: TextField by fxid()
     private val btnSearch: Button by fxid()
@@ -99,6 +98,7 @@ class MainView : View() {
         miExport.disableProperty().bindBidirectional(mainController.disableExportMenuItemProperty)
         miRelatedAnime.disableProperty().bindBidirectional(mainController.disableRelatedAnimeMenuItemProperty)
         miRecommendations.disableProperty().bindBidirectional(mainController.disableRecommendationsMenuItemProperty)
+        miAnimeList.disableProperty().bindBidirectional(mainController.disableAnimeListMenuItemProperty)
         titleProperty.bindBidirectional(mainController.titleProperty)
     }
 

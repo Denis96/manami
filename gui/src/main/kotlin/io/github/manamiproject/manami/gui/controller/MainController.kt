@@ -29,6 +29,7 @@ class MainController : Controller() {
     val disableExportMenuItemProperty = SimpleBooleanProperty(true)
     val disableRelatedAnimeMenuItemProperty = SimpleBooleanProperty(true)
     val disableRecommendationsMenuItemProperty = SimpleBooleanProperty(true)
+    val disableAnimeListMenuItemProperty = SimpleBooleanProperty(true)
     val titleProperty = SimpleStringProperty(APPLICATION_NAME)
 
 
@@ -54,6 +55,7 @@ class MainController : Controller() {
     }
 
     fun animeListChanged() {
+        updateMenuItemForAnimeList()
         updateMenuItemsForImportAndExport()
         updateMenuItemsForAdditionalLists()
         updateAutocompletionEntries()
@@ -67,6 +69,12 @@ class MainController : Controller() {
     fun filterListChanged() {
         updateMenuItemsForImportAndExport()
         updateAutocompletionEntries()
+    }
+
+    private fun updateMenuItemForAnimeList() {
+        val animeListIsEmpty = manami.fetchAnimeList().isEmpty()
+
+        disableAnimeListMenuItemProperty.value = animeListIsEmpty
     }
 
     private fun updateMenuItemsForImportAndExport() {
