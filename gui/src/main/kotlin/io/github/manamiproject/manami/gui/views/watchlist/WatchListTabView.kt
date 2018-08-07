@@ -1,15 +1,12 @@
 package io.github.manamiproject.manami.gui.views.watchlist
 
-import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.entities.Title
 import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.gui.components.HyperlinkBuilder.buildHyperlinkFrom
 import io.github.manamiproject.manami.gui.components.Icons.createIconDelete
 import io.github.manamiproject.manami.gui.components.Icons.createIconFilterList
 import io.github.manamiproject.manami.gui.controller.WatchListTabController
-import javafx.collections.FXCollections
 import javafx.geometry.Pos.CENTER
-import javafx.geometry.Pos.CENTER_LEFT
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
 import javafx.scene.control.TableColumn
@@ -22,7 +19,6 @@ private const val SPACER = 25.0
 class WatchListTabView : View() {
     override val root = TabPane()
 
-    private val manami = Manami
     private val watchListTabController: WatchListTabController by inject()
     private var titleColumn: TableColumn<WatchListEntry, Title>? = null
 
@@ -59,14 +55,10 @@ class WatchListTabView : View() {
 
                 graphic = hbox(spacing = 5, alignment = CENTER) {
                     button("", createIconFilterList()).action {
-                        runAsync {
-                            manami.filterAnime(watchListEntry)
-                        }
+                        watchListTabController.filterAnime(watchListEntry)
                     }
                     button("", createIconDelete()).action {
-                        runAsync {
-                            manami.removeFromWatchList(watchListEntry)
-                        }
+                        watchListTabController.removeFromWatchList(watchListEntry)
                     }
                 }
             }

@@ -1,7 +1,6 @@
 package io.github.manamiproject.manami.gui.views
 
 import io.github.manamiproject.manami.common.isValidFile
-import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.gui.components.FileChoosers.showExportDialog
 import io.github.manamiproject.manami.gui.components.FileChoosers.showImportFileDialog
 import io.github.manamiproject.manami.gui.components.FileChoosers.showOpenFileDialog
@@ -48,6 +47,7 @@ class MainView : View() {
     private val animeListTabView: AnimeListTabView by inject()
     private val watchListTabView: WatchListTabView by inject()
     private val searchResultView: SearchResultView by inject()
+
     private val mainController: MainController by inject()
 
     private val tabPane: TabPane by fxid()
@@ -72,8 +72,6 @@ class MainView : View() {
     private val miAbout: MenuItem by fxid()
     private val txtSearchString: TextField by fxid()
     private val btnSearch: Button by fxid()
-
-    private val manami = Manami
 
 
     override fun onDock() {
@@ -137,14 +135,14 @@ class MainView : View() {
     private fun initNativeCloseButton(stage: Stage) {
         Platform.setImplicitExit(false)
         stage.onCloseRequest = EventHandler {
-            manami.exit()
+            mainController.exit()
         }
     }
 
 
     fun exit() {
         checkFileSavedContext {
-            manami.exit()
+            mainController.exit()
         }
     }
 
@@ -152,7 +150,7 @@ class MainView : View() {
 
     fun newList() {
         checkFileSavedContext {
-            manami.newList()
+            mainController.newList()
             //TODO: clear everything
         }
     }
@@ -163,10 +161,8 @@ class MainView : View() {
         showOpenFileDialog(primaryStage)?.let {
             if(it.isValidFile()) {
                 checkFileSavedContext {
-                    runAsync {
-                        manami.open(it)
-                        //TODO: clear everything
-                    }
+                    mainController.open(it)
+                    //TODO: clear everything
                 }
             }
         }
@@ -175,20 +171,20 @@ class MainView : View() {
     fun importFile() {
         showImportFileDialog(primaryStage)?.let {
             checkFileSavedContext {
-                manami.importFile(it)
+                mainController.importFile(it)
             }
         }
     }
 
     fun export() {
         showExportDialog(primaryStage)?.let {
-            manami.export(it)
+            mainController.export(it)
         }
     }
 
     fun save() {
-        if(manami.getCurrentlyOpenedFile().isValidFile()) {
-            manami.save()
+        if(mainController.isOpenedFileValid()) {
+            mainController.save()
         } else {
             saveAs()
         }
@@ -202,13 +198,13 @@ class MainView : View() {
                 Paths.get("${it.fileName}$FILE_SUFFIX_XML")
             }
 
-            manami.saveAs(file)
+            mainController.saveAs(file)
         }
     }
 
-    fun undo() = manami.undo()
+    fun undo() = mainController.undo()
 
-    fun redo() = manami.redo()
+    fun redo() = mainController.redo()
 
     fun showRecommendationsTab() {}
 
@@ -237,7 +233,7 @@ class MainView : View() {
     }
 
     fun invalidateCache() {
-        manami.invalidateCache()
+        mainController.invalidateCache()
     }
 
     fun showAbout() = AboutView.showAbout()
@@ -245,7 +241,7 @@ class MainView : View() {
     private fun checkFileSavedContext(command: () -> Unit) {
         var dialogDecision = NO
 
-        if(manami.isFileUnsaved()) {
+        if(mainController.isFileUnsaved()) {
             dialogDecision = UnsavedChangesDialogView.showUnsavedChangesDialog()
         }
 

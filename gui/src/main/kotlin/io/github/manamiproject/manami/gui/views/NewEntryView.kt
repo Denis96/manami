@@ -6,7 +6,6 @@ import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.gui.components.FileChoosers.showBrowseForFolderDialog
 import io.github.manamiproject.manami.gui.extensions.isValid
-import javafx.application.Platform
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.concurrent.WorkerStateEvent
 import javafx.event.EventHandler

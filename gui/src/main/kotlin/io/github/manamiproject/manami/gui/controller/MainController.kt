@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections.observableSet
 import tornadofx.Controller
+import java.nio.file.Path
 
 
 private const val APPLICATION_NAME = "Manami"
@@ -134,4 +135,68 @@ class MainController : Controller() {
         autoCompleteTitles.clear()
         autoCompleteTitles.addAll(allTitles)
     }
+
+    fun exit() {
+        runAsync {
+            manami.exit()
+        }
+    }
+
+    fun newList() {
+        runAsync {
+            manami.newList()
+        }
+    }
+
+    fun open(file: Path) {
+        runAsync {
+            manami.open(file)
+        }
+    }
+
+    fun importFile(file: Path) {
+        runAsync {
+            manami.importFile(file)
+        }
+    }
+
+    fun export(file: Path) {
+        runAsync {
+            manami.export(file)
+        }
+    }
+
+    fun save() {
+        runAsync {
+            manami.save()
+        }
+    }
+
+    fun saveAs(file: Path) {
+        runAsync {
+            manami.saveAs(file)
+        }
+    }
+
+    fun undo() {
+        runAsync {
+            manami.undo()
+        }
+    }
+
+    fun redo() {
+        runAsync {
+            manami.redo()
+        }
+    }
+
+    fun invalidateCache() {
+        runAsync {
+            manami.invalidateCache()
+        }
+    }
+
+    fun isFileUnsaved() = manami.isFileUnsaved()
+
+    fun isOpenedFileValid() = manami.getCurrentlyOpenedFile().isValidFile()
 }

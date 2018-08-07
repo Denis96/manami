@@ -1,6 +1,5 @@
 package io.github.manamiproject.manami.gui.views.animelist
 
-import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.gui.controller.AnimeListTabController
 import javafx.event.EventHandler
@@ -10,7 +9,6 @@ import tornadofx.*
 class AnimeListTabView : View() {
     override val root = TabPane()
 
-    private val manami = Manami
     private val animeListTabController: AnimeListTabController by inject()
 
     val tab = Tab("Anime List").apply {
@@ -22,7 +20,7 @@ class AnimeListTabView : View() {
                 cellFactory = TitleTableCellCallback()
                 comparator = Comparator { o1, o2 -> o1.compareTo(o2, ignoreCase = true) }
                 onEditCommit = EventHandler {
-                    manami.changeTitle(it.rowValue, it.newValue as Title)
+                    animeListTabController.changeTitle(it.rowValue, it.newValue as Title)
                 }
             }
 
@@ -31,7 +29,7 @@ class AnimeListTabView : View() {
                 cellFactory = AnimeTypeTableCellCallback()
                 comparator = Comparator { o1, o2 -> o1.value.compareTo(o2.value) }
                 onEditCommit = EventHandler {
-                    manami.changeType(it.rowValue, it.newValue as AnimeType)
+                    animeListTabController.changeType(it.rowValue, it.newValue as AnimeType)
                 }
             }
 
@@ -40,7 +38,7 @@ class AnimeListTabView : View() {
                 cellFactory = EpisodesTableCellCallback()
                 comparator = Comparator { o1, o2 -> o1.compareTo(o2) }
                 onEditCommit = EventHandler {
-                    manami.changeEpisodes(it.rowValue, it.newValue)
+                    animeListTabController.changeEpisodes(it.rowValue, it.newValue)
                 }
             }
 
@@ -49,7 +47,7 @@ class AnimeListTabView : View() {
                 cellFactory = InfoLinkTableCellCallback()
                 comparator = Comparator { o1, o2 -> o1.toString().compareTo(o2.toString()) }
                 onEditCommit = EventHandler {
-                    manami.changeInfoLink(it.rowValue, it.newValue)
+                    animeListTabController.changeInfoLink(it.rowValue, it.newValue)
                 }
             }
 
@@ -58,7 +56,7 @@ class AnimeListTabView : View() {
                 cellFactory = LocationTableCellCallback()
                 comparator = Comparator { o1, o2 -> o1.compareTo(o2) }
                 onEditCommit = EventHandler {
-                    manami.changeLocation(it.rowValue, it.newValue)
+                    animeListTabController.changeLocation(it.rowValue, it.newValue)
                 }
             }
 

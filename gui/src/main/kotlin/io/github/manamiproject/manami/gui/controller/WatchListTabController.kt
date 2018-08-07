@@ -14,4 +14,16 @@ class WatchListTabController : Controller() {
         watchListEntries.clear()
         watchListEntries.addAll(manami.fetchWatchList()) //FIXME: probably too expensive on huge lists
     }
+
+    fun filterAnime(watchListEntry: WatchListEntry) {
+        runAsync {
+            manami.filterAnime(watchListEntry)
+        }
+    }
+
+    fun removeFromWatchList(watchListEntry: WatchListEntry) {
+        runAsync {
+            manami.removeFromWatchList(watchListEntry)
+        }
+    }
 }
