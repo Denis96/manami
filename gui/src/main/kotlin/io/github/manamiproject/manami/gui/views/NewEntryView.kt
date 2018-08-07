@@ -20,6 +20,7 @@ import org.controlsfx.validation.Validator
 import tornadofx.ChangeListener
 import tornadofx.Fragment
 import tornadofx.isInt
+import tornadofx.runLater
 
 private const val DEFAULT_EPISODES = "1"
 
@@ -64,7 +65,7 @@ class NewEntryView : Fragment() {
                 val host = infoLink.url?.host
 
                 if(infoLink.toString() != txtInfoLink.text) {
-                    Platform.runLater { txtInfoLink.text = infoLink.toString() }
+                    runLater { txtInfoLink.text = infoLink.toString() }
                 }
 
                 if(valueBefore && !valueAfter && SupportedInfoLinkDomains.values().map { it.value }.contains(host)) {
@@ -76,7 +77,7 @@ class NewEntryView : Fragment() {
         val clipboardString: String = Clipboard.getSystemClipboard().string
 
         if (UrlValidator.isValid(clipboardString)) {
-            Platform.runLater {
+            runLater {
                 txtInfoLink.text = clipboardString
                 txtInfoLink.requestFocus()
             }
@@ -87,7 +88,7 @@ class NewEntryView : Fragment() {
         disableControls(true)
         runAsync {
             Manami.fetchAnime(InfoLink(txtInfoLink.text))?.let {
-                Platform.runLater {
+                runLater {
                     txtTitle.text = it.title
                     txtEpisodes.text = it.episodes.toString()
                     animeTypeIndex.value = it.type.ordinal
@@ -100,7 +101,7 @@ class NewEntryView : Fragment() {
     }
 
     private fun disableControls(value: Boolean) {
-        Platform.runLater {
+        runLater {
             txtTitle.isDisable = value
             txtType.isDisable = value
             txtEpisodes.isDisable = value
@@ -126,16 +127,16 @@ class NewEntryView : Fragment() {
     }
 
     private fun initAnimeTypeControls() {
-        Platform.runLater { txtType.text = AnimeType.values()[animeTypeIndex.value].toString() }
+        runLater { txtType.text = AnimeType.values()[animeTypeIndex.value].toString() }
 
         animeTypeIndex.addListener(ChangeListener<Number> { _, _, valueAfter ->
             run {
-                Platform.runLater { txtType.text = AnimeType.values()[valueAfter.toInt()].value }
+                runLater { txtType.text = AnimeType.values()[valueAfter.toInt()].value }
 
                 when (valueAfter) {
-                    0 -> Platform.runLater { btnTypeDown.isDisable = true }
-                    AnimeType.values().size - 1 -> Platform.runLater { btnTypeUp.isDisable = true }
-                    else -> Platform.runLater {
+                    0 -> runLater { btnTypeDown.isDisable = true }
+                    AnimeType.values().size - 1 -> runLater { btnTypeUp.isDisable = true }
+                    else -> runLater {
                         btnTypeDown.isDisable = false
                         btnTypeUp.isDisable = false
                     }
@@ -148,10 +149,10 @@ class NewEntryView : Fragment() {
         txtEpisodes.textProperty().addListener(ChangeListener<String> { _, _, valueAfter ->
             run {
                 if (!valueAfter.isInt() || valueAfter.startsWith("-") || "0" == valueAfter) {
-                    Platform.runLater { txtEpisodes.text = DEFAULT_EPISODES }
+                    runLater { txtEpisodes.text = DEFAULT_EPISODES }
                 }
 
-                Platform.runLater { btnEpisodeDown.isDisable = txtEpisodes.text == DEFAULT_EPISODES }
+                runLater { btnEpisodeDown.isDisable = txtEpisodes.text == DEFAULT_EPISODES }
             }
         })
     }
@@ -169,11 +170,11 @@ class NewEntryView : Fragment() {
     }
 
     fun increaseEpisodes() {
-        Platform.runLater { txtEpisodes.text = (txtEpisodes.text.toInt() + 1).toString() }
+        runLater { txtEpisodes.text = (txtEpisodes.text.toInt() + 1).toString() }
     }
 
     fun decreaseEpisodes() {
-        Platform.runLater { txtEpisodes.text = (txtEpisodes.text.toInt() - 1).toString() }
+        runLater { txtEpisodes.text = (txtEpisodes.text.toInt() - 1).toString() }
     }
 
     fun typeUp() {
@@ -198,7 +199,7 @@ class NewEntryView : Fragment() {
                 folder = configFile.parent.relativize(it).toString().replace("\\", "/")
             }
 
-            Platform.runLater { txtLocation.text = folder }
+            runLater { txtLocation.text = folder }
         }
     }
 }

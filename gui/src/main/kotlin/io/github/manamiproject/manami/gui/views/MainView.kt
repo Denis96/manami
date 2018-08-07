@@ -163,8 +163,10 @@ class MainView : View() {
         showOpenFileDialog(primaryStage)?.let {
             if(it.isValidFile()) {
                 checkFileSavedContext {
-                    manami.open(it)
-                    //TODO: clear everything
+                    runAsync {
+                        manami.open(it)
+                        //TODO: clear everything
+                    }
                 }
             }
         }
