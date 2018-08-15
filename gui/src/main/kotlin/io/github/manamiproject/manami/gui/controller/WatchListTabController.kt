@@ -3,13 +3,13 @@ package io.github.manamiproject.manami.gui.controller
 import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.entities.WatchListEntry
 import javafx.beans.property.SimpleListProperty
-import javafx.collections.FXCollections.observableArrayList
 import tornadofx.Controller
+import tornadofx.observableList
 
 class WatchListTabController : Controller() {
 
     private val manami = Manami
-    val watchListEntries = SimpleListProperty<WatchListEntry>(observableArrayList())
+    val watchListEntries = SimpleListProperty<WatchListEntry>(observableList())
 
     fun updateEntries() {
         watchListEntries.clear()

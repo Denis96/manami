@@ -6,7 +6,6 @@ import io.github.manamiproject.manami.gui.components.HyperlinkBuilder
 import io.github.manamiproject.manami.gui.components.Icons
 import io.github.manamiproject.manami.gui.controller.WatchListTabController
 import javafx.beans.property.SimpleListProperty
-import javafx.collections.FXCollections.observableArrayList
 import javafx.geometry.Pos
 import javafx.scene.control.TableColumn
 import javafx.scene.text.Text
@@ -19,7 +18,7 @@ class WatchListTable : Fragment() {
     private val watchListTabController: WatchListTabController by inject()
     private var titleColumn: TableColumn<WatchListEntry, Title>? = null
 
-    var entries = SimpleListProperty<WatchListEntry>(observableArrayList())
+    var entries = SimpleListProperty<WatchListEntry>(observableList())
 
     init {
         entries.value.onChange {

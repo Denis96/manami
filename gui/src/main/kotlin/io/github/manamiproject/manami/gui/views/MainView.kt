@@ -27,13 +27,18 @@ import io.github.manamiproject.manami.gui.views.animelist.AnimeListTabView
 import io.github.manamiproject.manami.gui.views.searchresults.SearchResultView
 import io.github.manamiproject.manami.gui.views.watchlist.WatchListTabView
 import javafx.application.Platform
+import javafx.collections.FXCollections.observableSet
+import javafx.collections.SetChangeListener
 import javafx.event.EventHandler
 import javafx.scene.Parent
 import javafx.scene.control.*
 import javafx.stage.Stage
 import org.controlsfx.control.textfield.TextFields
+import org.controlsfx.control.textfield.TextFields.bindAutoCompletion
 import tornadofx.View
 import tornadofx.action
+import tornadofx.observableList
+import tornadofx.onChange
 import java.nio.file.Path
 import java.nio.file.Paths
 
@@ -72,6 +77,8 @@ class MainView : View() {
     private val txtSearchString: TextField by fxid()
     private val btnSearch: Button by fxid()
 
+    private var autoCompletionBinding = bindAutoCompletion(txtSearchString, observableSet<String>())
+
 
     override fun onDock() {
         this.currentStage?.let {
@@ -82,10 +89,17 @@ class MainView : View() {
     }
 
     init {
-        TextFields.bindAutoCompletion(txtSearchString, mainController.autoCompleteTitles)
+        initAutocompletion()
         initProperties()
         initMenuItemGlyphs()
         initSearchButton()
+    }
+
+    private fun initAutocompletion() {
+        mainController.autoCompleteTitles.addListener(SetChangeListener {
+            autoCompletionBinding.dispose()
+            autoCompletionBinding = bindAutoCompletion(txtSearchString, mainController.autoCompleteTitles)
+        })
     }
 
     private fun initProperties() {

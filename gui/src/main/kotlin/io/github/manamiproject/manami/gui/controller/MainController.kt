@@ -134,6 +134,7 @@ class MainController : Controller() {
     }
 
     private fun updateAutocompletionEntries() {
+        //FIXME: why are there 6 invocations on a list with 4 entries
         val animeListTitles = manami.fetchAnimeList().map(Anime::title).toSet()
         val watchListTitles = manami.fetchWatchList().map(WatchListEntry::title).toSet()
         val filterListTitles = manami.fetchFilterList().map(FilterListEntry::title).toSet()
