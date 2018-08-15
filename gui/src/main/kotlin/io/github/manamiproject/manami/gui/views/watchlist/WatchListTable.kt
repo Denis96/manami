@@ -6,7 +6,6 @@ import io.github.manamiproject.manami.gui.components.HyperlinkBuilder
 import io.github.manamiproject.manami.gui.components.Icons
 import io.github.manamiproject.manami.gui.controller.WatchListTabController
 import javafx.beans.property.SimpleListProperty
-import javafx.collections.FXCollections
 import javafx.collections.FXCollections.observableArrayList
 import javafx.geometry.Pos
 import javafx.scene.control.TableColumn

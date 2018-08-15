@@ -207,4 +207,10 @@ class MainController : Controller() {
     fun isFileUnsaved() = manami.isFileUnsaved()
 
     fun isOpenedFileValid() = manami.getCurrentlyOpenedFile().isValidFile()
+
+    fun search(searchString: String) {
+        runAsync {
+            manami.search(searchString)
+        }
+    }
 }

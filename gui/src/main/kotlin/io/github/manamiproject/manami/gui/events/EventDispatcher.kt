@@ -5,8 +5,10 @@ import io.github.manamiproject.manami.cache.offlinedatabase.OfflineDatabaseUpdat
 import io.github.manamiproject.manami.common.LoggerDelegate
 import io.github.manamiproject.manami.core.events.FileSavedStatusChangedEvent
 import io.github.manamiproject.manami.core.events.OpenedFileChangedEvent
+import io.github.manamiproject.manami.core.events.SearchResultEvent
 import io.github.manamiproject.manami.gui.controller.AnimeListTabController
 import io.github.manamiproject.manami.gui.controller.MainController
+import io.github.manamiproject.manami.gui.controller.SearchResultController
 import io.github.manamiproject.manami.gui.controller.WatchListTabController
 import io.github.manamiproject.manami.gui.views.SplashScreenView
 import io.github.manamiproject.manami.persistence.events.AnimeListChangedEvent
@@ -23,6 +25,7 @@ object EventDispatcher: Controller() {
     private val mainController: MainController by inject()
     private val animeListTabController: AnimeListTabController by inject()
     private val watchListTabController: WatchListTabController by inject()
+    private val searchResultController: SearchResultController by inject()
 
     @Subscribe
     fun offlineDatabaseSuccessfullyUpdated(obj: OfflineDatabaseUpdatedSuccessfullyEvent) = splashScreenView.replaceWithMainView()
@@ -61,6 +64,14 @@ object EventDispatcher: Controller() {
     fun fileChanged(obj: FileSavedStatusChangedEvent) {
         runLater {
             mainController.fileSavedStatusChanged()
+        }
+    }
+
+    @Subscribe
+    fun searchResult(obj: SearchResultEvent) {
+        runLater {
+            searchResultController.watchListSearchResults.value.clear()
+            searchResultController.watchListSearchResults.value.addAll(obj.getWatchListSearchResultList())
         }
     }
 }

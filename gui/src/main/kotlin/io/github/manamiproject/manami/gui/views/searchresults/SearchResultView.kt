@@ -1,36 +1,36 @@
 package io.github.manamiproject.manami.gui.views.searchresults
 
+import io.github.manamiproject.manami.gui.controller.SearchResultController
 import io.github.manamiproject.manami.gui.views.watchlist.WatchListTable
 import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
-import tornadofx.View
-import tornadofx.pane
-import tornadofx.titledpane
-import tornadofx.vbox
+import tornadofx.*
 
 class SearchResultView : View() {
     override val root = TabPane()
 
-    private val watchListTableView: WatchListTable = find(WatchListTable::class)
+    private val searchResultController: SearchResultController by inject()
+    private val watchListTable: WatchListTable = find(WatchListTable::class)
+
+    init {
+        watchListTable.entries.addAll(searchResultController.watchListSearchResults)
+        searchResultController.watchListSearchResults.bind(watchListTable.entries)
+    }
 
 
     val tab = Tab("Search results").apply {
         content = vbox {
             titledpane {
                 text = "Anime list"
-                pane {
-                    title = "WOOHOO"
-                }
+                content = label("anime list search results")
             }
             titledpane {
                 text = "Watch list"
-                content = watchListTableView.root
+                content = watchListTable.root
             }
             titledpane {
                 text = "Filter list"
-                pane {
-                    title = "WOOHOO"
-                }
+                content = label("filter list search results")
             }
         }
     }

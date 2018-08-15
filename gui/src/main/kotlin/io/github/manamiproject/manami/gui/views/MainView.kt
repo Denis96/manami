@@ -123,11 +123,16 @@ class MainView : View() {
 
     private fun initSearchButton() {
         btnSearch.action {
-            if (!tabPane.tabs.contains(searchResultView.tab)) {
-                tabPane.tabs.addAll(searchResultView.tab)
-            }
+            if(txtSearchString.text.isNotBlank()) {
+                if (!tabPane.tabs.contains(searchResultView.tab)) {
+                    tabPane.tabs.addAll(searchResultView.tab)
+                }
 
-            tabPane.selectionModel.select(searchResultView.tab)
+                tabPane.selectionModel.select(searchResultView.tab)
+
+                mainController.search(txtSearchString.text)
+                txtSearchString.text = ""
+            }
         }
     }
 

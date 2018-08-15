@@ -1,6 +1,9 @@
 package io.github.manamiproject.manami.core.events;
 
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.FilterListEntry
 import io.github.manamiproject.manami.entities.MinimalEntry
+import io.github.manamiproject.manami.entities.WatchListEntry
 
 
 /**
@@ -8,9 +11,9 @@ import io.github.manamiproject.manami.entities.MinimalEntry
  */
 class SearchResultEvent(val searchString: String) {
 
-    private val animeListSearchResultList: MutableList<MinimalEntry> = mutableListOf()
-    private val filterListSearchResultList: MutableList<MinimalEntry> = mutableListOf()
-    private val watchListSearchResultList: MutableList<MinimalEntry> = mutableListOf()
+    private val animeListSearchResultList: MutableList<Anime> = mutableListOf()
+    private val filterListSearchResultList: MutableList<FilterListEntry> = mutableListOf()
+    private val watchListSearchResultList: MutableList<WatchListEntry> = mutableListOf()
 
     /**
      * @return The list containing search results from anime list.
@@ -30,16 +33,16 @@ class SearchResultEvent(val searchString: String) {
     fun getWatchListSearchResultList() = watchListSearchResultList.toList()
 
 
-    fun addAnimeListSearchResult(entry: MinimalEntry) {
+    fun addAnimeListSearchResult(entry: Anime) {
         animeListSearchResultList.add(entry)
     }
 
-    fun addFilterListSearchResult(entry: MinimalEntry) {
+    fun addFilterListSearchResult(entry: FilterListEntry) {
         filterListSearchResultList.add(entry)
     }
 
 
-    fun addWatchListSearchResult(entry: MinimalEntry) {
+    fun addWatchListSearchResult(entry: WatchListEntry) {
         watchListSearchResultList.add(entry)
     }
 }
