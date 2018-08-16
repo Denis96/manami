@@ -6,7 +6,7 @@ import io.github.manamiproject.manami.gui.components.HyperlinkBuilder
 import io.github.manamiproject.manami.gui.components.Icons
 import io.github.manamiproject.manami.gui.controller.WatchListTabController
 import javafx.beans.property.SimpleListProperty
-import javafx.geometry.Pos
+import javafx.geometry.Pos.CENTER
 import javafx.scene.control.TableColumn
 import javafx.scene.text.Text
 import tornadofx.*
@@ -46,6 +46,7 @@ class WatchListTable : Fragment() {
             }.cellFormat { title ->
                 rowItem.infoLink.url?.let {
                     graphic = HyperlinkBuilder.buildHyperlinkFrom(title, it)
+                    alignment = CENTER
                 }
             }
 
@@ -53,7 +54,7 @@ class WatchListTable : Fragment() {
             column("Actions", WatchListEntry::infoLink).cellFormat {
                 val watchListEntry = rowItem
 
-                graphic = hbox(spacing = 5, alignment = Pos.CENTER) {
+                graphic = hbox(spacing = 5, alignment = CENTER) {
                     button("", Icons.createIconFilterList()).action {
                         watchListTabController.filterAnime(watchListEntry)
                         entries.remove(watchListEntry)
