@@ -56,9 +56,11 @@ class WatchListTable : Fragment() {
                 graphic = hbox(spacing = 5, alignment = Pos.CENTER) {
                     button("", Icons.createIconFilterList()).action {
                         watchListTabController.filterAnime(watchListEntry)
+                        entries.remove(watchListEntry)
                     }
                     button("", Icons.createIconDelete()).action {
                         watchListTabController.removeFromWatchList(watchListEntry)
+                        entries.remove(watchListEntry)
                     }
                 }
             }
