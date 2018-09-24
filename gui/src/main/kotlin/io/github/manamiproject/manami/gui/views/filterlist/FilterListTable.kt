@@ -1,9 +1,10 @@
-package io.github.manamiproject.manami.gui.views.watchlist
+package io.github.manamiproject.manami.gui.views.filterlist
 
+import io.github.manamiproject.manami.entities.FilterListEntry
 import io.github.manamiproject.manami.entities.Title
-import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.gui.components.HyperlinkBuilder
 import io.github.manamiproject.manami.gui.components.Icons
+import io.github.manamiproject.manami.gui.controller.FilterListTabController
 import io.github.manamiproject.manami.gui.controller.WatchListTabController
 import javafx.beans.property.SimpleListProperty
 import javafx.geometry.Pos.CENTER
@@ -13,18 +14,17 @@ import tornadofx.*
 
 private const val SPACER = 25.0
 
-class WatchListTable : Fragment() {
+class FilterListTable : Fragment() {
 
-    var entries = SimpleListProperty<WatchListEntry>(observableList())
+    var entries = SimpleListProperty<FilterListEntry>(observableList())
 
-    private val watchListTabController: WatchListTabController by inject()
-    private var titleColumn: TableColumn<WatchListEntry, Title>? = null
-
+    private val filterListTabController: FilterListTabController by inject()
+    private var titleColumn: TableColumn<FilterListEntry, Title>? = null
 
     init {
         entries.value.onChange {
             entries.value
-                    .map(WatchListEntry::title)
+                    .map(FilterListEntry::title)
                     .map { title -> Pair(title, title.length) }
                     .maxBy { titleLengthPair -> titleLengthPair.second }
                     ?.let { titleLengthPair ->
@@ -38,11 +38,11 @@ class WatchListTable : Fragment() {
         tableview(entries.value) {
             fitToParentSize()
 
-            column("Thumbnail", WatchListEntry::thumbnail).cellFormat {
+            column("Thumbnail", FilterListEntry::thumbnail).cellFormat {
                 graphic = imageview(this.rowItem.thumbnail.toString())
             }
 
-            column("Title", WatchListEntry::title).apply {
+            column("Title", FilterListEntry::title).apply {
                 titleColumn = this
             }.cellFormat { title ->
                 rowItem.infoLink.url?.let {
@@ -52,17 +52,13 @@ class WatchListTable : Fragment() {
             }
 
 
-            column("Actions", WatchListEntry::infoLink).cellFormat {
-                val watchListEntry = rowItem
+            column("Actions", FilterListEntry::infoLink).cellFormat {
+                val filterListEntry = rowItem
 
                 graphic = hbox(spacing = 5, alignment = CENTER) {
-                    button("", Icons.createIconFilterList()).action {
-                        watchListTabController.filterAnime(watchListEntry)
-                        entries.remove(watchListEntry)
-                    }
                     button("", Icons.createIconDelete()).action {
-                        watchListTabController.removeFromWatchList(watchListEntry)
-                        entries.remove(watchListEntry)
+                        entries.remove(filterListEntry)
+                        filterListTabController.removeFromFilterList(filterListEntry)
                     }
                 }
             }

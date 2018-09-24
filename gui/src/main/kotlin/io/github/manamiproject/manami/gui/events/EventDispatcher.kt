@@ -72,6 +72,9 @@ object EventDispatcher: Controller() {
         runLater {
             searchResultController.watchListSearchResults.value.clear()
             searchResultController.watchListSearchResults.value.addAll(obj.getWatchListSearchResultList())
+
+            searchResultController.filterListSearchResults.value.clear()
+            searchResultController.filterListSearchResults.value.addAll(obj.getFilterListSearchResultList())
         }
     }
 }
