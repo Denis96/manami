@@ -1,6 +1,6 @@
 package io.github.manamiproject.manami.cache.remoteretrieval.extractor.anime.mal
 
-import io.github.manamiproject.manami.common.readAllLines
+import io.github.manamiproject.manami.common.extensions.readAllLines
 import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink

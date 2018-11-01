@@ -1,29 +1,34 @@
 package io.github.manamiproject.manami.common
 
 import org.assertj.core.api.Assertions.assertThat
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
 import org.slf4j.Logger
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.gherkin.Feature
 import kotlin.reflect.*
 
 
 object LoggerDelegateSpec : Spek({
 
-    describe("an instance of the logger") {
-        val logger: Logger = LoggerDelegate().getValue(LoggerDelegateSpec::class.java, TestProp())
+    Feature("Creating a Logger by delegate") {
 
-        it("must not be null") {
-            assertThat(logger).isNotNull()
-        }
+        Scenario("Manually creating a logger") {
+            lateinit var logger: Logger
 
-        it("must be a logback instance") {
-            assertThat(logger::class.java.toString()).isEqualToIgnoringCase("class ch.qos.logback.classic.Logger")
+            When("") {
+                logger = LoggerDelegate().getValue(LoggerDelegateSpec::class.java, TestProp())
+            }
+
+            Then("it must create logback instance") {
+                assertThat(logger::class.java.toString()).isEqualToIgnoringCase("class ch.qos.logback.classic.Logger")
+            }
         }
     }
 })
 
+
 private class TestProp : KProperty<String> {
+    override val isSuspend: Boolean
+        get() = TODO("not implemented")
     override val annotations: List<Annotation>
         get() = mutableListOf()
     override val getter: KProperty.Getter<String>

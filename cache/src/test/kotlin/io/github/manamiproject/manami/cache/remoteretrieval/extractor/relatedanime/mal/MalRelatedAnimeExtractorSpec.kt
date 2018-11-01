@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.cache.remoteretrieval.extractor.relatedanime.mal
 
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.recommendations.mal.MalRecommendationsExtractorSpec
-import io.github.manamiproject.manami.common.readAllLines
+import io.github.manamiproject.manami.common.extensions.readAllLines
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
 import org.assertj.core.api.Assertions.assertThat

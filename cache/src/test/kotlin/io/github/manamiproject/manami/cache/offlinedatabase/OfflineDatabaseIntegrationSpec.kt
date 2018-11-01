@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.cache.offlinedatabase
 
 import io.github.manamiproject.manami.cache.CacheFacade
-import io.github.manamiproject.manami.common.*
+import io.github.manamiproject.manami.common.extensions.*
 import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink

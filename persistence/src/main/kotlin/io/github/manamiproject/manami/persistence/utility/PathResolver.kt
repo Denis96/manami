@@ -1,9 +1,8 @@
 package io.github.manamiproject.manami.persistence.utility
 
-import io.github.manamiproject.manami.common.isNotDirectory
-import io.github.manamiproject.manami.common.notExists
+import io.github.manamiproject.manami.common.extensions.isNotDirectory
+import io.github.manamiproject.manami.common.extensions.notExists
 import java.lang.IllegalArgumentException
-import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 

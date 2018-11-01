@@ -1,8 +1,7 @@
 package io.github.manamiproject.manami.cache.caches
 
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.isA
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
 import io.github.manamiproject.manami.cache.remoteretrieval.RemoteFetcher
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
@@ -20,7 +19,7 @@ object AnimeCacheSpec : Spek({
     given("an empty cache") {
         val remoteRetrievalMock = mock<RemoteFetcher> {
             on {
-                fetchAnime(isA())
+                fetchAnime(any())
             } doReturn Anime("Death Note", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"))
         }
 

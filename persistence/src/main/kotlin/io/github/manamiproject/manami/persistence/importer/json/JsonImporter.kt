@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.persistence.importer.json
 
 import io.github.manamiproject.manami.common.LoggerDelegate
-import io.github.manamiproject.manami.common.bufferedReader
+import io.github.manamiproject.manami.common.extensions.bufferedReader
 import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.persistence.InternalPersistence
 import io.github.manamiproject.manami.persistence.importer.Importer

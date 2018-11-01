@@ -1,9 +1,9 @@
 package io.github.manamiproject.manami.persistence.exporter.json
 
-import io.github.manamiproject.manami.common.deleteIfExists
-import io.github.manamiproject.manami.common.exists
-import io.github.manamiproject.manami.common.readAllLines
-import io.github.manamiproject.manami.common.walk
+import io.github.manamiproject.manami.common.extensions.deleteIfExists
+import io.github.manamiproject.manami.common.extensions.exists
+import io.github.manamiproject.manami.common.extensions.readAllLines
+import io.github.manamiproject.manami.common.extensions.walk
 import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.persistence.InternalPersistence
 import io.github.manamiproject.manami.persistence.importer.xml.parser.MalSaxParserSpec

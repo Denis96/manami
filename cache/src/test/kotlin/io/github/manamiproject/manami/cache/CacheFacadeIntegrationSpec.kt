@@ -1,8 +1,8 @@
 package io.github.manamiproject.manami.cache
 
-import io.github.manamiproject.manami.common.deleteIfExists
-import io.github.manamiproject.manami.common.exists
-import io.github.manamiproject.manami.common.walk
+import io.github.manamiproject.manami.common.extensions.deleteIfExists
+import io.github.manamiproject.manami.common.extensions.exists
+import io.github.manamiproject.manami.common.extensions.walk
 import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink

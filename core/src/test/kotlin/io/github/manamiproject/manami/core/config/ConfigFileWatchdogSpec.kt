@@ -1,8 +1,8 @@
 package io.github.manamiproject.manami.core.config
 
-import io.github.manamiproject.manami.common.exists
-import io.github.manamiproject.manami.common.isDirectory
-import io.github.manamiproject.manami.common.isRegularFile
+import io.github.manamiproject.manami.common.extensions.exists
+import io.github.manamiproject.manami.common.extensions.isDirectory
+import io.github.manamiproject.manami.common.extensions.isRegularFile
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given

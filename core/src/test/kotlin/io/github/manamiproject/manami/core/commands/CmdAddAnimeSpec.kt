@@ -1,6 +1,6 @@
 package io.github.manamiproject.manami.core.commands
 
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockitokotlin2.*
 import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCommandSpecs.createSimpleAnimeListPersistenceMock
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink

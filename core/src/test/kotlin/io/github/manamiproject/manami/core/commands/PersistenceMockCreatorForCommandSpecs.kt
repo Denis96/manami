@@ -1,9 +1,9 @@
 package io.github.manamiproject.manami.core.commands
 
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.doAnswer
-import com.nhaarman.mockito_kotlin.eq
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doAnswer
+import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.mock
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.FilterListEntry
 import io.github.manamiproject.manami.entities.InfoLink

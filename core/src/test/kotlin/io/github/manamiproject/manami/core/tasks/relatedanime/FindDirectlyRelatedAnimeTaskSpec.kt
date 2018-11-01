@@ -1,9 +1,9 @@
 package io.github.manamiproject.manami.core.tasks.relatedanime
 
 import com.google.common.eventbus.Subscribe
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.eq
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.mock
 import io.github.manamiproject.manami.cache.Cache
 import io.github.manamiproject.manami.common.EventBus
 import io.github.manamiproject.manami.core.events.ProgressState

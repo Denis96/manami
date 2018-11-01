@@ -1,11 +1,10 @@
 package io.github.manamiproject.manami.core.config
 
 import io.github.manamiproject.manami.common.*
+import io.github.manamiproject.manami.common.extensions.*
 import org.apache.commons.io.IOUtils
 import org.slf4j.Logger
 import java.nio.charset.Charset
-import java.nio.charset.StandardCharsets
-import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 

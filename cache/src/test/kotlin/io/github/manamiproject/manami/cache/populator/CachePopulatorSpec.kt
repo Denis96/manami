@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.cache.populator
 
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
 import io.github.manamiproject.manami.cache.AnimeFetcher
 import io.github.manamiproject.manami.cache.caches.AnimeCache
 import io.github.manamiproject.manami.cache.caches.RelatedAnimeCache

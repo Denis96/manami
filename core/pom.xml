@@ -30,7 +30,7 @@
       <artifactId>common</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.nhaarman</groupId>
+      <groupId>com.nhaarman.mockitokotlin2</groupId>
       <artifactId>mockito-kotlin</artifactId>
     </dependency>
     <dependency>
@@ -40,6 +40,19 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-text</artifactId>
+    </dependency>
+
+
+    <!-- TODO: remove after finishing Spek2 migration -->
+    <dependency>
+      <groupId>org.jetbrains.spek</groupId>
+      <artifactId>spek-api</artifactId>
+      <version>1.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.spek</groupId>
+      <artifactId>spek-junit-platform-engine</artifactId>
+      <version>1.2.1</version>
     </dependency>
   </dependencies>
 </project>

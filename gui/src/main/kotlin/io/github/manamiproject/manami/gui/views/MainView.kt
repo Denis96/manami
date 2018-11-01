@@ -1,6 +1,6 @@
 package io.github.manamiproject.manami.gui.views
 
-import io.github.manamiproject.manami.common.isValidFile
+import io.github.manamiproject.manami.common.extensions.isValidFile
 import io.github.manamiproject.manami.gui.components.FileChoosers.showExportDialog
 import io.github.manamiproject.manami.gui.components.FileChoosers.showImportFileDialog
 import io.github.manamiproject.manami.gui.components.FileChoosers.showOpenFileDialog

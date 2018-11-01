@@ -4,6 +4,10 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.github.manamiproject.manami.cache.populator.CacheEntrySource
 import io.github.manamiproject.manami.common.*
+import io.github.manamiproject.manami.common.extensions.createDirectories
+import io.github.manamiproject.manami.common.extensions.exists
+import io.github.manamiproject.manami.common.extensions.isRegularFile
+import io.github.manamiproject.manami.common.extensions.readAllBytes
 import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink

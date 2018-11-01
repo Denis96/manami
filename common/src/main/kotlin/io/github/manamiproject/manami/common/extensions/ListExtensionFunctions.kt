@@ -1,4 +1,4 @@
-package io.github.manamiproject.manami.common
+package io.github.manamiproject.manami.common.extensions
 
 import java.security.SecureRandom
 

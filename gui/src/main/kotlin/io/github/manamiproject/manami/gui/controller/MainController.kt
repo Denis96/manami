@@ -1,6 +1,6 @@
 package io.github.manamiproject.manami.gui.controller
 
-import io.github.manamiproject.manami.common.isValidFile
+import io.github.manamiproject.manami.common.extensions.isValidFile
 import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.FilterListEntry

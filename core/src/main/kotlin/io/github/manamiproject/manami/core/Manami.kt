@@ -3,7 +3,7 @@ package io.github.manamiproject.manami.core
 import io.github.manamiproject.manami.cache.Cache
 import io.github.manamiproject.manami.cache.CacheFacade
 import io.github.manamiproject.manami.common.LoggerDelegate
-import io.github.manamiproject.manami.common.isValidFile
+import io.github.manamiproject.manami.common.extensions.isValidFile
 import io.github.manamiproject.manami.core.config.Config
 import io.github.manamiproject.manami.core.commands.*
 import io.github.manamiproject.manami.core.config.ConfigFileWatchdog

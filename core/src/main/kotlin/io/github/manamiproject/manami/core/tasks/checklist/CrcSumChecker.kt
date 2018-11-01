@@ -1,6 +1,10 @@
 package io.github.manamiproject.manami.core.tasks.checklist
 
 import io.github.manamiproject.manami.common.*
+import io.github.manamiproject.manami.common.extensions.isRegularFile
+import io.github.manamiproject.manami.common.extensions.list
+import io.github.manamiproject.manami.common.extensions.newDirectoryStream
+import io.github.manamiproject.manami.common.extensions.readAllBytes
 import io.github.manamiproject.manami.core.config.Config
 import io.github.manamiproject.manami.core.events.checklist.NoCrcSumProvidedChecklistEvent
 import io.github.manamiproject.manami.core.events.checklist.CrcSumsDifferChecklistEvent

@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.gui.views
 
-import io.github.manamiproject.manami.common.exists
-import io.github.manamiproject.manami.common.isRegularFile
+import io.github.manamiproject.manami.common.extensions.exists
+import io.github.manamiproject.manami.common.extensions.isRegularFile
 import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.gui.components.FileChoosers.showBrowseForFolderDialog

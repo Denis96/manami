@@ -1,6 +1,6 @@
 package io.github.manamiproject.manami.cache.caches
 
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockitokotlin2.*
 import io.github.manamiproject.manami.cache.remoteretrieval.RemoteFetcher
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls

@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.persistence.exporter.xml
 
-import io.github.manamiproject.manami.common.createFile
-import io.github.manamiproject.manami.common.notExists
+import io.github.manamiproject.manami.common.extensions.createFile
+import io.github.manamiproject.manami.common.extensions.notExists
 import io.github.manamiproject.manami.persistence.utility.ToolVersion
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.FilterListEntry
@@ -13,7 +13,6 @@ import org.w3c.dom.Document
 import org.w3c.dom.DocumentType
 import org.w3c.dom.Element
 import java.io.PrintWriter
-import java.nio.file.Files
 import java.nio.file.Path
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory

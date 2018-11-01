@@ -3,7 +3,7 @@ package io.github.manamiproject.manami.core.tasks.recommendations
 import io.github.manamiproject.manami.cache.Cache
 import io.github.manamiproject.manami.common.EventBus
 import io.github.manamiproject.manami.common.LoggerDelegate
-import io.github.manamiproject.manami.common.randomizeOrder
+import io.github.manamiproject.manami.common.extensions.randomizeOrder
 import io.github.manamiproject.manami.core.events.RecommendationListEvent
 import io.github.manamiproject.manami.core.tasks.AbstractTask
 import io.github.manamiproject.manami.entities.Anime

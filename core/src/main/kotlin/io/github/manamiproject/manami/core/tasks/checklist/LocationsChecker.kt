@@ -1,6 +1,10 @@
 package io.github.manamiproject.manami.core.tasks.checklist
 
 import io.github.manamiproject.manami.common.*
+import io.github.manamiproject.manami.common.extensions.exists
+import io.github.manamiproject.manami.common.extensions.isDirectory
+import io.github.manamiproject.manami.common.extensions.isRegularFile
+import io.github.manamiproject.manami.common.extensions.newDirectoryStream
 import io.github.manamiproject.manami.core.config.Config
 import io.github.manamiproject.manami.core.events.checklist.*
 import io.github.manamiproject.manami.entities.Anime
