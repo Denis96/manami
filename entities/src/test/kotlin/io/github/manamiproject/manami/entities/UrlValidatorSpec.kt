@@ -1,89 +1,106 @@
 package io.github.manamiproject.manami.entities
 
 import org.assertj.core.api.Assertions.assertThat
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.gherkin.Feature
 
 object UrlValidatorSpec : Spek({
 
-    given("a valid url with http scheme") {
-        val url = "http://github.com"
+    Feature("Validate a URLs") {
 
-        on("checking if is valid") {
-            val result = UrlValidator.isValid(url)
+        Scenario("A valid url with http scheme") {
+            val url = "http://github.com"
 
-            it("returns true, because the url is valid") {
-                assertThat(result).isTrue()
+            var resultIsValid = false
+
+            When("Checking if is valid") {
+                resultIsValid = UrlValidator.isValid(url)
+            }
+
+            Then("Returns true, because the url is valid") {
+                assertThat(resultIsValid).isTrue()
+            }
+
+            var resultIsNotValid = true
+
+            When("Checking if is not valid") {
+                resultIsNotValid = UrlValidator.isNotValid(url)
+            }
+
+            Then("Returns false, because the url is valid") {
+                assertThat(resultIsNotValid).isFalse()
             }
         }
 
-        on("checking if is not valid") {
-            val result = UrlValidator.isNotValid(url)
+        Scenario("A valid url with https scheme") {
+            val url = "https://github.com"
 
-            it("returns false, because the url is valid") {
-                assertThat(result).isFalse()
+            var resultIsValid = false
+
+            When("Checking if is valid") {
+                resultIsValid = UrlValidator.isValid(url)
             }
-        }
-    }
 
-    given("a valid url with https scheme") {
-        val url = "https://github.com"
-
-        on("checking if is valid") {
-            val result = UrlValidator.isValid(url)
-
-            it("returns true, because the url is valid") {
-                assertThat(result).isTrue()
+            Then("Returns true, because the url is valid") {
+                assertThat(resultIsValid).isTrue()
             }
-        }
 
-        on("checking if is not valid") {
-            val result = UrlValidator.isNotValid(url)
+            var resultIsNotValid = true
 
-            it("returns false, because the url is valid") {
-                assertThat(result).isFalse()
+            When("Checking if is not valid") {
+                resultIsNotValid = UrlValidator.isNotValid(url)
             }
-        }
-    }
 
-    given("a string which is not a valid url") {
-        val url = "value.more"
-
-        on("checking if is valid") {
-            val result = UrlValidator.isValid(url)
-
-            it("returns false, because the string is not a valid url") {
-                assertThat(result).isFalse()
+            Then("Returns false, because the url is valid") {
+                assertThat(resultIsNotValid).isFalse()
             }
         }
 
-        on("checking if is not valid") {
-            val result = UrlValidator.isNotValid(url)
+        Scenario("A string which is not a valid url") {
+            val url = "value.more"
 
-            it("returns true, because the string is not a valid url") {
-                assertThat(result).isTrue()
+            var resultIsValid = true
+
+            When("Checking if is valid") {
+                resultIsValid = UrlValidator.isValid(url)
+            }
+
+            Then("Returns false, because the string is not a valid url") {
+                assertThat(resultIsValid).isFalse()
+            }
+
+            var resultIsNotValid = false
+
+            When("Checking if is not valid") {
+                resultIsNotValid = UrlValidator.isNotValid(url)
+            }
+
+            Then("Returns true, because the string is not a valid url") {
+                assertThat(resultIsNotValid).isTrue()
             }
         }
-    }
 
-    given("a valid url with a non valid scheme") {
-        val url = "ftp://127.0.0.1"
+        Scenario("A valid url with a non valid scheme") {
+            val url = "ftp://127.0.0.1"
 
-        on("checking if is valid") {
-            val result = UrlValidator.isValid(url)
+            var resultIsValid = true
 
-            it("returns false, because the scheme is not allowed") {
-                assertThat(result).isFalse()
+            When("Checking if is valid") {
+                resultIsValid = UrlValidator.isValid(url)
             }
-        }
 
-        on("checking if is not valid") {
-            val result = UrlValidator.isNotValid(url)
+            Then("Returns false, because the scheme is not allowed") {
+                assertThat(resultIsValid).isFalse()
+            }
 
-            it("returns true, because the scheme is not allowed") {
-                assertThat(result).isTrue()
+            var resultIsNotValid = false
+
+            When("Checking if is not valid") {
+                resultIsNotValid = UrlValidator.isNotValid(url)
+            }
+
+            Then("Returns true, because the scheme is not allowed") {
+                assertThat(resultIsNotValid).isTrue()
             }
         }
     }

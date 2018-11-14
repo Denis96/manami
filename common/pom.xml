@@ -26,7 +26,6 @@
       <artifactId>guava</artifactId>
     </dependency>
 
-
     <!-- TODO: remove after finishing Spek2 migration -->
     <dependency>
       <groupId>org.spekframework.spek2</groupId>

@@ -1,11 +1,7 @@
-package io.github.manamiproject.manami.entities.entities
+package io.github.manamiproject.manami.entities
 
-import io.github.manamiproject.manami.entities.InfoLink
 import org.assertj.core.api.Assertions.assertThat
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
 import java.net.URL
 
 class InfoLinkSpec : Spek({
