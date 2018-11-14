@@ -17,7 +17,7 @@ object QueueSpec : Spek({
                 resultIsEmpty = queue.isEmpty()
             }
 
-            Then("It must return true") {
+            Then("It must be empty") {
                 assertThat(resultIsEmpty).isTrue()
             }
 
@@ -77,7 +77,7 @@ object QueueSpec : Spek({
 
             var resultPeek: String? = null
 
-            When("Peeking at the first element") {
+            When("Taking a peek by getting the first element without removing it") {
                 resultPeek = queue.peek()
             }
 
