@@ -51,11 +51,11 @@ class FilterListEntrySpec : Spek({
 
             lateinit var result: FilterListEntry
 
-            When("creating watch list entry from filter entry") {
+            When("Creating FilterListEntry entry from WatchListEntry") {
                 result = FilterListEntry.valueOf(watchListEntry)
             }
 
-            Then("must generate a valid watch list entry") {
+            Then("Must generate a valid watch list entry") {
                 assertThat(result).isNotNull
                 assertThat(result.title).isEqualTo(watchListEntry.title)
                 assertThat(result.infoLink).isEqualTo(watchListEntry.infoLink)

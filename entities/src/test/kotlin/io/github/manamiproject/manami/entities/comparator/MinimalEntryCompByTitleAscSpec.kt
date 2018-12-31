@@ -13,7 +13,6 @@ class MinimalEntryCompByTitleAscSpec : Spek({
     Feature("Sorting Anime by Title ASC") {
 
         Scenario("Sort two objects of type WatchListEntry") {
-
             lateinit var gintama: WatchListEntry
             lateinit var steinsGate: WatchListEntry
 

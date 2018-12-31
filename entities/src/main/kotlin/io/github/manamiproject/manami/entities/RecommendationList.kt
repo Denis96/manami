@@ -41,11 +41,12 @@ class RecommendationList : Collection<Recommendation> {
 
 
     override fun contains(element: Recommendation): Boolean {
-        return recommendations.values.contains(element)
+        return recommendations.keys.contains(element.infoLink)
     }
 
 
     override fun containsAll(elements: Collection<Recommendation>): Boolean {
-        return recommendations.values.containsAll(elements)
+        val infoLinks = elements.map { it.infoLink }.toSet()
+        return recommendations.keys.containsAll(infoLinks)
     }
 }
