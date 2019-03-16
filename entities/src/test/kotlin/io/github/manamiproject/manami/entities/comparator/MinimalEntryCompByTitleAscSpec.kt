@@ -1,100 +1,105 @@
 package io.github.manamiproject.manami.entities.comparator
 
 import io.github.manamiproject.manami.entities.InfoLink
-import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
-import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.MAL
 import io.github.manamiproject.manami.entities.WatchListEntry
 import org.assertj.core.api.Assertions.assertThat
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.gherkin.Feature
-import java.net.URL
+import org.junit.jupiter.api.Test
 
-class MinimalEntryCompByTitleAscSpec : Spek({
+class MinimalEntryCompByTitleAscSpec {
 
-    Feature("Sorting Anime by Title ASC") {
+    @Test
+    fun `two different and valid WatchListEntries having titles starting with different letters - Must return a greater than 0 to indicate that Steinsgate comes after Gintama`() {
+        //given
+        val gintama = WatchListEntry(
+                title = "Gintama",
+                infoLink = InfoLink("${MAL.url}28977")
+        )
 
-        Scenario("Sort two objects of type WatchListEntry") {
-            lateinit var gintama: WatchListEntry
-            lateinit var steinsGate: WatchListEntry
+        val steinsGate = WatchListEntry(
+                title = "Steins;Gate",
+                infoLink = InfoLink("${MAL.url}9253")
+        )
 
-            Given("Two different and valid WatchListEntries having titles starting with different letters") {
-                gintama = WatchListEntry("Gintama",
-                        InfoLink("${MAL.url}28977"),
-                        URL("https://myanimelist.cdn-dena.com/images/anime/3/72078t.jpg")
-                )
+        //when
+        val result = MinimalEntryCompByTitleAsc.compare(steinsGate, gintama)
 
-                steinsGate = WatchListEntry(
-                        "Steins;Gate",
-                        InfoLink("${MAL.url}9253"),
-                        URL("https://myanimelist.cdn-dena.com/images/anime/5/73199t.jpg")
-                )
-            }
-
-            var resultCompareSteinsGateFirstParam = 0
-
-            When("Comparing both with steins;gate as first parameter") {
-                resultCompareSteinsGateFirstParam = MinimalEntryCompByTitleAsc.compare(steinsGate, gintama)
-            }
-
-            Then("Must return a value > 0 to indicate that [S]teins;gate comes after [G]intama") {
-                assertThat(resultCompareSteinsGateFirstParam).isGreaterThan(0)
-            }
-
-            var resultCompareGinatamaFirstParam = 0
-
-            When("Comparing both with gintama as first parameter") {
-                resultCompareGinatamaFirstParam = MinimalEntryCompByTitleAsc.compare(gintama, steinsGate)
-            }
-
-            Then("Must return a value < 0 to indicate that [G]intama comes before [S]teins;gate") {
-                assertThat(resultCompareGinatamaFirstParam).isLessThan(0)
-            }
-
-            var resultSameEntry = -100
-
-            When("Comparing one entry with itself") {
-                resultSameEntry = MinimalEntryCompByTitleAsc.compare(steinsGate, steinsGate)
-            }
-
-            Then("Must return 0 to indicate that the titles are equal") {
-                assertThat(resultSameEntry).isZero()
-            }
-
-            lateinit var deathNote: WatchListEntry
-            lateinit var entryWithEmptTitle: WatchListEntry
-
-            Given("A valid WatchListEntry and a WatchListEntry with blank title") {
-                deathNote = WatchListEntry(
-                        "Death Note",
-                        InfoLink("${MAL.url}1535"),
-                        URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
-                )
-
-                entryWithEmptTitle = WatchListEntry("",
-                        InfoLink("${MAL.url}33352"),
-                        URL("https://myanimelist.cdn-dena.com/images/anime/11/89398t.jpg")
-                )
-            }
-
-            var resultEmptyTitleFirstParam = -100
-
-            When("Comparing two entries. First entry's title is empty.") {
-                resultEmptyTitleFirstParam = MinimalEntryCompByTitleAsc.compare(entryWithEmptTitle, deathNote)
-            }
-
-            Then("Must return 0 to indicate that the titles are not comparable.") {
-                assertThat(resultEmptyTitleFirstParam).isZero()
-            }
-
-            var resultEmptyTitleSecondParam = -100
-
-            When("Comparing two entries. Second entry's title is empty.") {
-                resultEmptyTitleSecondParam = MinimalEntryCompByTitleAsc.compare(deathNote, entryWithEmptTitle)
-            }
-
-            Then("Must return 0 to indicate that the titles are not comparable.") {
-                assertThat(resultEmptyTitleSecondParam).isZero()
-            }
-        }
+        //then
+        assertThat(result).isGreaterThan(0)
     }
-})
+
+    @Test
+    fun `two different and valid WatchListEntries having titles starting with different letters - Must return a less than 0 to indicate that Steinsgate comes after Gintama`() {
+        //given
+        val gintama = WatchListEntry(
+                title = "Gintama",
+                infoLink = InfoLink("${MAL.url}28977")
+        )
+
+        val steinsGate = WatchListEntry(
+                title = "Steins;Gate",
+                infoLink = InfoLink("${MAL.url}9253")
+        )
+
+        //when
+        val result = MinimalEntryCompByTitleAsc.compare(gintama, steinsGate)
+
+        //then
+        assertThat(result).isLessThan(0)
+    }
+
+    @Test
+    fun `comparing one entry with itself - Must return 0 to indicate that the titles are equal`() {
+        //given
+        val steinsGate = WatchListEntry(
+                title = "Steins;Gate",
+                infoLink = InfoLink("${MAL.url}9253")
+        )
+
+        //when
+        val result = MinimalEntryCompByTitleAsc.compare(steinsGate, steinsGate)
+
+        //then
+        assertThat(result).isZero()
+    }
+
+    @Test
+    fun `comparing two entries - First entry's title is empty - Must return 0 to indicate that the titles are not comparable`() {
+        //given
+        val deathNote = WatchListEntry(
+                title = "Death Note",
+                infoLink = InfoLink("${MAL.url}1535")
+        )
+
+        val entryWithEmptTitle = WatchListEntry(
+                title = "",
+                infoLink = InfoLink("${MAL.url}33352")
+        )
+
+        //when
+        val result = MinimalEntryCompByTitleAsc.compare(entryWithEmptTitle, deathNote)
+
+        //then
+        assertThat(result).isZero()
+    }
+
+    @Test
+    fun `comparing two entries - Second entry's title is empty - Must return 0 to indicate that the titles are not comparable`() {
+        //given
+        val deathNote = WatchListEntry(
+                title = "Death Note",
+                infoLink = InfoLink("${MAL.url}1535")
+        )
+
+        val entryWithEmptTitle = WatchListEntry(
+                title = "",
+                infoLink = InfoLink("${MAL.url}33352")
+        )
+
+        //when
+        val result = MinimalEntryCompByTitleAsc.compare(entryWithEmptTitle, deathNote)
+
+        //then
+        assertThat(result).isZero()
+    }
+}
