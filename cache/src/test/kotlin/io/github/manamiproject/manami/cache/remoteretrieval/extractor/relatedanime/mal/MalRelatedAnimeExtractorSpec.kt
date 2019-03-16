@@ -4,6 +4,7 @@ import io.github.manamiproject.manami.cache.remoteretrieval.extractor.recommenda
 import io.github.manamiproject.manami.common.extensions.readAllLines
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -29,15 +30,15 @@ object MalRelatedAnimeExtractorSpec : Spek({
             }
 
             it("must contain parent story") {
-                assertThat(relatedAnime).contains(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}849"))
+                assertThat(relatedAnime).contains(InfoLink("${MAL.url}849"))
             }
 
             it("must contain sequel") {
-                assertThat(relatedAnime).contains(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}7311"))
+                assertThat(relatedAnime).contains(InfoLink("${MAL.url}7311"))
             }
 
             it("must contain spin-off") {
-                assertThat(relatedAnime).contains(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}26351"))
+                assertThat(relatedAnime).contains(InfoLink("${MAL.url}26351"))
             }
         }
     }
@@ -74,7 +75,7 @@ object MalRelatedAnimeExtractorSpec : Spek({
 
 
     given("a valid MAL infolink") {
-        val infoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+        val infoLink = InfoLink("${MAL.url}1535")
 
         on("checking responsibility") {
             val result: Boolean = malRelatedAnimeExtractor.isResponsible(infoLink)
@@ -87,7 +88,7 @@ object MalRelatedAnimeExtractorSpec : Spek({
 
 
     given("a valid ANIDB infolink") {
-        val infoLink = InfoLink("${NormalizedAnimeBaseUrls.ANIDB.value}4563")
+        val infoLink = InfoLink("${ANIDB.url}4563")
 
         on("checking responsibility") {
             val result: Boolean = malRelatedAnimeExtractor.isResponsible(infoLink)

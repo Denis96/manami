@@ -1,5 +1,6 @@
 package io.github.manamiproject.manami.entities
 
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.assertj.core.api.Assertions.assertThat
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
@@ -15,7 +16,7 @@ class MinimalEntrySpec : Spek({
             Given("A valid FilterListEntry") {
                 filterListEntry = FilterListEntry(
                         "Death Note",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                        InfoLink("${MAL.url}1535"),
                         URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
                 )
             }
@@ -34,7 +35,7 @@ class MinimalEntrySpec : Spek({
 
             Given("A valid WatchListEntry") {
                 watchListEntry = WatchListEntry("Death Note",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                        InfoLink("${MAL.url}1535"),
                         URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
                 )
             }
@@ -54,7 +55,7 @@ class MinimalEntrySpec : Spek({
             Given("A valid Anime") {
                 anime = Anime(
                         "Death Note",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                        InfoLink("${MAL.url}1535"),
                         37,
                         AnimeType.TV,
                         "/death_note",
@@ -80,7 +81,7 @@ class MinimalEntrySpec : Spek({
             Given("A FilterListEntry without title") {
                 filterListEntry = FilterListEntry(
                         "",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                        InfoLink("${MAL.url}1535"),
                         URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
                 )
             }
@@ -100,7 +101,7 @@ class MinimalEntrySpec : Spek({
             Given("A WatchListEntry without title") {
                 watchListEntry = WatchListEntry(
                         "",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                        InfoLink("${MAL.url}1535"),
                         URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
                 )
             }
@@ -120,7 +121,7 @@ class MinimalEntrySpec : Spek({
             Given("An Anime without title") {
                 anime = Anime(
                         "",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+                        InfoLink("${MAL.url}1535")
                 )
             }
 
@@ -141,7 +142,7 @@ class MinimalEntrySpec : Spek({
             Given("A FilterListEntry with a blank title") {
                 filterListEntry = FilterListEntry(
                         "   ",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                        InfoLink("${MAL.url}1535"),
                         URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
                 )
             }
@@ -161,7 +162,7 @@ class MinimalEntrySpec : Spek({
             Given("A WatchListEntry with a blank title") {
                 watchListEntry = WatchListEntry(
                         "   ",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                        InfoLink("${MAL.url}1535"),
                         URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
                 )
             }
@@ -181,7 +182,7 @@ class MinimalEntrySpec : Spek({
             Given("An Anime with a blank title") {
                 anime = Anime(
                         "   ",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+                        InfoLink("${MAL.url}1535")
                 )
             }
 

@@ -5,6 +5,7 @@ import io.github.manamiproject.manami.common.extensions.exists
 import io.github.manamiproject.manami.common.extensions.readAllLines
 import io.github.manamiproject.manami.common.extensions.walk
 import io.github.manamiproject.manami.entities.*
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import io.github.manamiproject.manami.persistence.InternalPersistence
 import io.github.manamiproject.manami.persistence.exporter.json.JsonExporterSpec
 import io.github.manamiproject.manami.persistence.inmemory.InMemoryPersistence
@@ -54,7 +55,7 @@ class XmlExporterSpec : Spek({
         context("an animelist, a filterlist and a watchlist") {
             val bokuDake = Anime(
                     "Boku dake ga Inai Machi",
-                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}31043"),
+                    InfoLink("${MAL.url}31043"),
                     12,
                     AnimeType.TV,
                     "/anime/series/boku_dake_ga_inai_machi"
@@ -64,7 +65,7 @@ class XmlExporterSpec : Spek({
 
             val rurouniKenshin = Anime(
                     "Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuiokuhen",
-                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}44"),
+                    InfoLink("${MAL.url}44"),
                     4,
                     AnimeType.OVA,
                     "/anime/series/rurouni_kenshin"
@@ -74,7 +75,7 @@ class XmlExporterSpec : Spek({
 
             val deathNoteRewrite = WatchListEntry(
                     "Death Note Rewrite",
-                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}2994"),
+                    InfoLink("${MAL.url}2994"),
                     URL("https://myanimelist.cdn-dena.com/images/anime/13/8518t.jpg")
             )
 
@@ -82,7 +83,7 @@ class XmlExporterSpec : Spek({
 
             val gintama = FilterListEntry(
                     "Gintama",
-                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}918"),
+                    InfoLink("${MAL.url}918"),
                     URL("https://myanimelist.cdn-dena.com/images/anime/2/10038t.jpg")
             )
 

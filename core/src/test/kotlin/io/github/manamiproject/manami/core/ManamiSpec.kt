@@ -5,6 +5,7 @@ import io.github.manamiproject.manami.core.config.Config
 import io.github.manamiproject.manami.core.tasks.TaskConductor
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.persistence.Persistence
 import org.jetbrains.spek.api.Spek
@@ -65,7 +66,7 @@ object ManamiSpec : Spek({
         }
 
         on("checking if entry exists in filterlist") {
-            val entry = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+            val entry = InfoLink("${MAL.url}1535")
             manami.filterListEntryExists(entry)
 
             it("must simply delegate to the persistence layer") {
@@ -82,7 +83,7 @@ object ManamiSpec : Spek({
         }
 
         on("checking if entry exists in animelist") {
-            val entry = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+            val entry = InfoLink("${MAL.url}1535")
             manami.animeEntryExists(entry)
 
             it("must simply delegate to the persistence layer") {
@@ -99,7 +100,7 @@ object ManamiSpec : Spek({
         }
 
         on("checking if entry exists in watchlist") {
-            val entry = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+            val entry = InfoLink("${MAL.url}1535")
             manami.animeEntryExists(entry)
 
             it("must simply delegate to the persistence layer") {

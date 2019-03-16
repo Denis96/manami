@@ -3,6 +3,7 @@ package io.github.manamiproject.manami.cache.remoteretrieval.extractor.relatedan
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.relatedanime.RelatedAnimeExtractor
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.cyberneko.html.parsers.DOMParser
 import org.w3c.dom.NodeList
 import org.xml.sax.InputSource
@@ -33,12 +34,12 @@ internal class MalRelatedAnimeExtractor : RelatedAnimeExtractor {
                 .map { relatedAnimeLinks.item(it) }
                 .forEach {
                     Regex("\\/\\d+\\/").find(it.textContent)?.let { matchResult ->
-                        relatedAnime.add(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}${matchResult.value.replace("/", "")}"))
+                        relatedAnime.add(InfoLink("${MAL.url}${matchResult.value.replace("/", "")}"))
                     }
                 }
 
         return relatedAnime
     }
 
-    override fun isResponsible(infoLink: InfoLink) = infoLink.toString().startsWith(NormalizedAnimeBaseUrls.MAL.value)
+    override fun isResponsible(infoLink: InfoLink) = infoLink.toString().startsWith(MAL.url)
 }

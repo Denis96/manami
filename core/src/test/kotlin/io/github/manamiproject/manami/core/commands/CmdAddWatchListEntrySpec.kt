@@ -4,6 +4,7 @@ import com.nhaarman.mockitokotlin2.mock
 import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCommandSpecs.createSimpleWatchListPersistenceMock
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.persistence.Persistence
 import org.assertj.core.api.Assertions.assertThat
@@ -19,7 +20,7 @@ object CmdAddWatchListEntrySpec : Spek({
     given("a command with a valid watch list entry") {
         val entry = WatchListEntry(
                 "Death Note",
-                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                InfoLink("${MAL.url}1535"),
                 URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
         )
 
@@ -42,7 +43,7 @@ object CmdAddWatchListEntrySpec : Spek({
     given("a command which has been executed already") {
         val entry = WatchListEntry(
                 "Death Note",
-                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                InfoLink("${MAL.url}1535"),
                 URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
         )
 

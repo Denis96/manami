@@ -1,4 +1,4 @@
-package io.github.manamiproject.manami.cache.populator
+package io.github.manamiproject.manami.cache
 
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
@@ -6,7 +6,7 @@ import io.github.manamiproject.manami.entities.InfoLink
 /**
  * To populate a cache you will need a source. This interface defines the structure of this source.
  */
-interface CacheEntrySource {
+internal interface CacheEntrySource {
 
     /**
      * Get the list of anime. This list is based in InfoLinks. The anime entry for an InfoLink can

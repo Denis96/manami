@@ -3,8 +3,8 @@
 gui/config/**
 *.log
 
-# TestNG output
-**/test-output/**
+# database repo
+database/
 
 
 

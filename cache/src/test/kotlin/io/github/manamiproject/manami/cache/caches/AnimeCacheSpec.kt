@@ -6,6 +6,7 @@ import io.github.manamiproject.manami.cache.remoteretrieval.RemoteFetcher
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -20,13 +21,13 @@ object AnimeCacheSpec : Spek({
         val remoteRetrievalMock = mock<RemoteFetcher> {
             on {
                 fetchAnime(any())
-            } doReturn Anime("Death Note", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"))
+            } doReturn Anime("Death Note", InfoLink("${MAL.url}1535"))
         }
 
         val cache = AnimeCache(remoteRetrievalMock)
 
         on("fetching an anime from this infolink") {
-            val infoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+            val infoLink = InfoLink("${MAL.url}1535")
             cache.get(infoLink)
 
             it("must call the remote retrieval strategy to fetch the entry, because it does not exist in the cache") {
@@ -39,11 +40,11 @@ object AnimeCacheSpec : Spek({
         val remoteRetrievalMock = mock(RemoteFetcher::class.java)
         val cache = AnimeCache(remoteRetrievalMock)
 
-        val deathNoteInfoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+        val deathNoteInfoLink = InfoLink("${MAL.url}1535")
         val deathNote = Anime("Death Note", deathNoteInfoLink)
         cache.populate(deathNoteInfoLink, deathNote)
 
-        val madeInAbyssInfoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}34599")
+        val madeInAbyssInfoLink = InfoLink("${MAL.url}34599")
         cache.populate(madeInAbyssInfoLink, Anime("Made in Abyss", madeInAbyssInfoLink))
 
         on("fetching an anime from this infolink") {

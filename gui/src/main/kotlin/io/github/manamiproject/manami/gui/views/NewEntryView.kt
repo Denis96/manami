@@ -67,7 +67,7 @@ class NewEntryView : Fragment() {
                     runLater { txtInfoLink.text = infoLink.toString() }
                 }
 
-                if(valueBefore && !valueAfter && SupportedInfoLinkDomains.values().map { it.value }.contains(host)) {
+                if(valueBefore && !valueAfter && SupportedInfoLinkDomains.values().map { it.url }.contains(host)) {
                     autoFillForm()
                 }
             }

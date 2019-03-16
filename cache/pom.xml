@@ -45,6 +45,12 @@
       <groupId>khttp</groupId>
       <artifactId>khttp</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlinx</groupId>
+      <artifactId>kotlinx-coroutines-core</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+
 
 
     <!-- TODO: remove after finishing Spek2 migration -->

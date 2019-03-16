@@ -44,4 +44,6 @@ fun Path.bufferedReader(charset: Charset = UTF_8): BufferedReader = this.toFile(
 
 
 // new convenience functions from here on
-fun Path.isValidFile(vararg linkOption: LinkOption): Boolean = exists() && isRegularFile(*linkOption)
+fun Path.fileExists(vararg linkOption: LinkOption) = exists() && isRegularFile(*linkOption)
+
+fun Path.directoryExists() = exists() && isDirectory()

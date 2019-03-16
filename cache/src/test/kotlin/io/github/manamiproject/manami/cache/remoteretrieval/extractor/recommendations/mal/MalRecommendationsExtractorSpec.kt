@@ -3,6 +3,7 @@ package io.github.manamiproject.manami.cache.remoteretrieval.extractor.recommend
 import io.github.manamiproject.manami.common.extensions.readAllLines
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import io.github.manamiproject.manami.entities.RecommendationList
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
@@ -28,47 +29,47 @@ object MalRecommendationsExtractorSpec : Spek({
             }
 
             it("Contains 2 for Toki wo Kakeru Shoujo") {
-                assertThat(recommendationList.get(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}2236"))?.amount).isEqualTo(2)
+                assertThat(recommendationList.get(InfoLink("${MAL.url}2236"))?.amount).isEqualTo(2)
             }
 
             it("Contains 1 for Tsuki wa Higashi ni Hi wa Nishi ni: Operation Sanctuary") {
-                assertThat(recommendationList.get(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}648"))?.amount).isOne()
+                assertThat(recommendationList.get(InfoLink("${MAL.url}648"))?.amount).isOne()
             }
 
             it("Contains 1 for Suzumiya Haruhi no Yuuutsu (2009)") {
-                assertThat(recommendationList.get(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}4382"))?.amount).isOne()
+                assertThat(recommendationList.get(InfoLink("${MAL.url}4382"))?.amount).isOne()
             }
 
             it("Contains 1 for Ushinawareta Mirai wo Motomete") {
-                assertThat(recommendationList.get(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}21845"))?.amount).isOne()
+                assertThat(recommendationList.get(InfoLink("${MAL.url}21845"))?.amount).isOne()
             }
 
             it("Contains 1 for Boku dake ga Inai Machi") {
-                assertThat(recommendationList.get(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}31043"))?.amount).isOne()
+                assertThat(recommendationList.get(InfoLink("${MAL.url}31043"))?.amount).isOne()
             }
 
             it("Contains 1 for _Summer") {
-                assertThat(recommendationList.get(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1692"))?.amount).isOne()
+                assertThat(recommendationList.get(InfoLink("${MAL.url}1692"))?.amount).isOne()
             }
 
             it("Contains 1 for Fire Tripper") {
-                assertThat(recommendationList.get(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}2973"))?.amount).isOne()
+                assertThat(recommendationList.get(InfoLink("${MAL.url}2973"))?.amount).isOne()
             }
 
             it("Contains 1 for Elf-ban Kakyuusei") {
-                assertThat(recommendationList.get(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}661"))?.amount).isOne()
+                assertThat(recommendationList.get(InfoLink("${MAL.url}661"))?.amount).isOne()
             }
 
             it("Contains 1 for Kimi ga Nozomu Eien") {
-                assertThat(recommendationList.get(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}147"))?.amount).isOne()
+                assertThat(recommendationList.get(InfoLink("${MAL.url}147"))?.amount).isOne()
             }
 
             it("Contains 1 for Kakyuusei 2: Hitomi no Naka no Shoujo-tachi") {
-                assertThat(recommendationList.get(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}510"))?.amount).isOne()
+                assertThat(recommendationList.get(InfoLink("${MAL.url}510"))?.amount).isOne()
             }
 
             it("Contains 1 for School Days") {
-                assertThat(recommendationList.get(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}2476"))?.amount).isOne()
+                assertThat(recommendationList.get(InfoLink("${MAL.url}2476"))?.amount).isOne()
             }
         }
     }
@@ -90,7 +91,7 @@ object MalRecommendationsExtractorSpec : Spek({
 
 
     given("a valid MAL infolink") {
-        val infoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+        val infoLink = InfoLink("${MAL.url}1535")
 
         on("checking responsibility") {
             val result: Boolean = malRecommendationsExtractor.isResponsible(infoLink)
@@ -103,7 +104,7 @@ object MalRecommendationsExtractorSpec : Spek({
 
 
     given("a valid ANIDB infolink") {
-        val infoLink = InfoLink("${NormalizedAnimeBaseUrls.ANIDB.value}4563")
+        val infoLink = InfoLink("${ANIDB.url}4563")
 
         on("checking responsibility") {
             val result: Boolean = malRecommendationsExtractor.isResponsible(infoLink)

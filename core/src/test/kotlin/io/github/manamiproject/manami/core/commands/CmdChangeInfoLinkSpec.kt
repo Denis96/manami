@@ -4,6 +4,7 @@ import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCom
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -14,10 +15,10 @@ import org.jetbrains.spek.api.dsl.on
 object CmdChangeInfoLinkSpec : Spek({
 
     given("a command with a valid anime") {
-        val newValue = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+        val newValue = InfoLink("${MAL.url}1535")
         val anime = Anime(
                 "Death Note",
-                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}15355555")
+                InfoLink("${MAL.url}15355555")
         )
 
         val persistenceMock = createAnimeListPersistenceMock()
@@ -40,10 +41,10 @@ object CmdChangeInfoLinkSpec : Spek({
     }
 
     given("a command with a valid anime which has been executed already") {
-        val newValue = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}15355555")
+        val newValue = InfoLink("${MAL.url}15355555")
         val anime = Anime(
                 "Death Note",
-                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+                InfoLink("${MAL.url}1535")
         )
 
         val persistenceMock = createAnimeListPersistenceMock()
@@ -56,7 +57,7 @@ object CmdChangeInfoLinkSpec : Spek({
         on("undo command") {
             cmdChangeInfoLink.undo()
 
-            it("must restore the initial value in persistence") {
+            it("must restore the initial url in persistence") {
                 assertThat(persistenceMock.fetchAnimeList()[0].infoLink).isEqualTo(anime.infoLink)
             }
         }

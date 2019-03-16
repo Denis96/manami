@@ -6,6 +6,7 @@ import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -42,7 +43,7 @@ class OfflineDatabaseIntegrationSpec : Spek({
         }
 
         on("initializing the cache") {
-            val infoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+            val infoLink = InfoLink("${MAL.url}1535")
             val crcSum1 = CRC32().apply {
                 update(Paths.get("database/anime-offline-database.json").readAllBytes())
             }
@@ -89,7 +90,7 @@ class OfflineDatabaseIntegrationSpec : Spek({
 
 
     given("no offline database to enforce cloning of the git repo and a valid MAL infolink") {
-        val infoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+        val infoLink = InfoLink("${MAL.url}1535")
 
         on("fetching the anime via cache") {
             val result: Anime? = CacheFacade.fetchAnime(infoLink)
@@ -135,14 +136,14 @@ class OfflineDatabaseIntegrationSpec : Spek({
             }
 
             it("must contain the correct related anime") {
-                assertThat(result.contains(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}2994"))).isTrue()
+                assertThat(result.contains(InfoLink("${MAL.url}2994"))).isTrue()
             }
         }
     }
 
 
     given("no offline database to enforce cloning of the git repo and a valid ANIDB infolink") {
-        val infoLink = InfoLink("${NormalizedAnimeBaseUrls.ANIDB.value}4563")
+        val infoLink = InfoLink("${ANIDB.url}4563")
 
         on("fetching the anime via cache") {
             val result: Anime? = CacheFacade.fetchAnime(infoLink)
@@ -188,11 +189,11 @@ class OfflineDatabaseIntegrationSpec : Spek({
             }
 
             it("must contain the correct related anime") {
-                assertThat(result.contains(InfoLink("${NormalizedAnimeBaseUrls.ANIDB.value}8147"))).isTrue()
+                assertThat(result.contains(InfoLink("${ANIDB.url}8147"))).isTrue()
             }
 
             it("must contain the correct related anime") {
-                assertThat(result.contains(InfoLink("${NormalizedAnimeBaseUrls.ANIDB.value}8146"))).isTrue()
+                assertThat(result.contains(InfoLink("${ANIDB.url}8146"))).isTrue()
             }
         }
     }

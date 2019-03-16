@@ -3,6 +3,7 @@ package io.github.manamiproject.manami.cache.remoteretrieval.extractor.recommend
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.recommendations.RecommendationsExtractor
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import io.github.manamiproject.manami.entities.RecommendationList
 
 internal class MalRecommendationsExtractor : RecommendationsExtractor {
@@ -10,5 +11,5 @@ internal class MalRecommendationsExtractor : RecommendationsExtractor {
         return RecommendationList()
     }
 
-    override fun isResponsible(infoLink: InfoLink) = infoLink.toString().startsWith(NormalizedAnimeBaseUrls.MAL.value)
+    override fun isResponsible(infoLink: InfoLink) = infoLink.toString().startsWith(MAL.url)
 }

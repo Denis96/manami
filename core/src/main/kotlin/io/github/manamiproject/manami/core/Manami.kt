@@ -3,7 +3,7 @@ package io.github.manamiproject.manami.core
 import io.github.manamiproject.manami.cache.Cache
 import io.github.manamiproject.manami.cache.CacheFacade
 import io.github.manamiproject.manami.common.LoggerDelegate
-import io.github.manamiproject.manami.common.extensions.isValidFile
+import io.github.manamiproject.manami.common.extensions.fileExists
 import io.github.manamiproject.manami.core.config.Config
 import io.github.manamiproject.manami.core.commands.*
 import io.github.manamiproject.manami.core.config.ConfigFileWatchdog
@@ -52,7 +52,7 @@ object Manami : StatefulApplication, AnimeDataAccess, ExternalPersistence, Anime
 
 
     override fun open(file: Path) {
-        if(file.isValidFile()) {
+        if(file.fileExists()) {
             taskConductor.cancelAllTasks()
             persistence.clearAll()
             resetCommandHistory()
@@ -65,7 +65,7 @@ object Manami : StatefulApplication, AnimeDataAccess, ExternalPersistence, Anime
 
 
     override fun export(file: Path) {
-        if(file.isValidFile()) {
+        if(file.fileExists()) {
             persistence.exportToJsonFile(file)
         }
     }
@@ -90,64 +90,31 @@ object Manami : StatefulApplication, AnimeDataAccess, ExternalPersistence, Anime
     }
 
 
-    override fun filterAnime(anime: MinimalEntry): Boolean {
-        return cmdService.executeCommand(CmdAddFilterEntry(FilterListEntry.valueOf(anime), persistence))
-    }
+    override fun filterAnime(anime: MinimalEntry) = cmdService.executeCommand(CmdAddFilterEntry(FilterListEntry.valueOf(anime), persistence))
 
+    override fun fetchFilterList() = persistence.fetchFilterList()
 
-    override fun fetchFilterList(): List<FilterListEntry> {
-        return persistence.fetchFilterList()
-    }
+    override fun filterListEntryExists(infoLink: InfoLink) = persistence.filterListEntryExists(infoLink)
 
+    override fun removeFromFilterList(anime: MinimalEntry)= cmdService.executeCommand(CmdDeleteFilterEntry(FilterListEntry.valueOf(anime), persistence))
 
-    override fun filterListEntryExists(infoLink: InfoLink): Boolean {
-        return persistence.filterListEntryExists(infoLink)
-    }
-
-
-    override fun removeFromFilterList(anime: MinimalEntry): Boolean {
-        return cmdService.executeCommand(CmdDeleteFilterEntry(FilterListEntry.valueOf(anime), persistence))
-    }
-
-
-    override fun addAnime(anime: Anime): Boolean {
-        return cmdService.executeCommand(CmdAddAnime(anime, persistence))
-    }
-
+    override fun addAnime(anime: Anime) = cmdService.executeCommand(CmdAddAnime(anime, persistence))
 
     override fun exit() = System.exit(0)
 
+    override fun fetchAnimeList() = persistence.fetchAnimeList()
 
-    override fun fetchAnimeList(): List<Anime> = persistence.fetchAnimeList()
+    override fun animeEntryExists(infoLink: InfoLink) = persistence.animeEntryExists(infoLink)
 
+    override fun fetchWatchList() = persistence.fetchWatchList()
 
-    override fun animeEntryExists(infoLink: InfoLink): Boolean {
-        return persistence.animeEntryExists(infoLink)
-    }
+    override fun watchListEntryExists(infoLink: InfoLink) = persistence.watchListEntryExists(infoLink)
 
-    
-    override fun fetchWatchList(): List<WatchListEntry> = persistence.fetchWatchList()
+    override fun watchAnime(anime: MinimalEntry) = cmdService.executeCommand(CmdAddWatchListEntry(WatchListEntry.valueOf(anime), persistence))
 
+    override fun removeFromWatchList(anime: MinimalEntry) = cmdService.executeCommand(CmdDeleteWatchListEntry(WatchListEntry.valueOf(anime), persistence))
 
-    override fun watchListEntryExists(infoLink: InfoLink): Boolean {
-        return persistence.watchListEntryExists(infoLink)
-    }
-
-
-    override fun watchAnime(anime: MinimalEntry): Boolean {
-        return cmdService.executeCommand(CmdAddWatchListEntry(WatchListEntry.valueOf(anime), persistence))
-    }
-
-
-    override fun removeFromWatchList(anime: MinimalEntry): Boolean {
-        return cmdService.executeCommand(CmdDeleteWatchListEntry(WatchListEntry.valueOf(anime), persistence))
-    }
-
-
-    override fun removeAnime(anime: Anime): Boolean {
-        return cmdService.executeCommand(CmdDeleteAnime(anime, persistence))
-    }
-
+    override fun removeAnime(anime: Anime) = cmdService.executeCommand(CmdDeleteAnime(anime, persistence))
 
     override fun search(searchString: String) {
         if (searchString.isNotBlank()) {
@@ -156,58 +123,45 @@ object Manami : StatefulApplication, AnimeDataAccess, ExternalPersistence, Anime
         }
     }
 
-
     override fun exportList(list: List<Anime>, file: Path) {
         if (file.toString().endsWith(FILE_SUFFIX_JSON)) {
             persistence.exportListToJsonFile(list, file)
         }
     }
 
-
     override fun undo() = cmdService.undo()
-
 
     override fun redo() = cmdService.redo()
 
-
     override fun isFileUnsaved() = cmdService.isUnsaved()
-
 
     override fun fetchAnime(infoLink: InfoLink) = cache.fetchAnime(infoLink)
 
-
     override fun getCurrentlyOpenedFile(): Path = Config.file
-
 
     override fun changeTitle(anime: Anime, newTitle: Title) {
         cmdService.executeCommand(CmdChangeTitle(anime, newTitle, persistence))
     }
 
-
     override fun changeType(anime: Anime, newType: AnimeType) {
         cmdService.executeCommand(CmdChangeType(anime, newType, persistence))
     }
-
 
     override fun changeEpisodes(anime: Anime, newNumberOfEpisodes: Episodes) {
         cmdService.executeCommand(CmdChangeEpisodes(anime, newNumberOfEpisodes, persistence))
     }
 
-
     override fun changeInfoLink(anime: Anime, newInfoLink: InfoLink) {
         cmdService.executeCommand(CmdChangeInfoLink(anime, newInfoLink, persistence))
     }
-
 
     override fun changeLocation(anime: Anime, newLocation: Location) {
         cmdService.executeCommand(CmdChangeLocation(anime, newLocation, persistence))
     }
 
+    override fun doneCommandsExist() = !cmdService.isEmptyDoneCommands()
 
-    override fun doneCommandsExist(): Boolean = !cmdService.isEmptyDoneCommands()
-
-
-    override fun undoneCommandsExist(): Boolean = !cmdService.isEmptyUndoneCommands()
+    override fun undoneCommandsExist() = !cmdService.isEmptyUndoneCommands()
 
     override fun clearAll() = persistence.clearAll()
 

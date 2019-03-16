@@ -1,10 +1,10 @@
 package io.github.manamiproject.manami.cache.offlinedatabase
 
 import io.github.manamiproject.manami.cache.CacheFacade
-import io.github.manamiproject.manami.dto.AnimeType
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.NORMALIZED_ANIME_DOMAIN
+import io.github.manamiproject.manami.entities.AnimeType
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -42,7 +42,7 @@ class OfflineDatabaseIntegrationTest : Spek({
         }
 
         on("initializing the cache") {
-            val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
+            val infoLink = InfoLink("${MAL.url}1535")
             val crcSum1 = CRC32().apply {
                 update(Files.readAllBytes(Paths.get("database/anime-offline-database.json")))
             }
@@ -89,7 +89,7 @@ class OfflineDatabaseIntegrationTest : Spek({
 
 
     given("no offline database to enforce cloning of the git repo and a valid MAL infolink") {
-        val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
+        val infoLink = InfoLink("${MAL.url}1535")
 
         on("fetching the anime via cache") {
             val result: Anime? = CacheFacade.fetchAnime(infoLink)
@@ -135,14 +135,14 @@ class OfflineDatabaseIntegrationTest : Spek({
             }
 
             it("must contain the correct related anime") {
-                assertThat(result.contains(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}2994"))).isTrue()
+                assertThat(result.contains(InfoLink("${MAL.url}2994"))).isTrue()
             }
         }
     }
 
 
     given("no offline database to enforce cloning of the git repo and a valid ANIDB infolink") {
-        val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.ANIDB.value}4563")
+        val infoLink = InfoLink("${ANIDB.url}4563")
 
         on("fetching the anime via cache") {
             val result: Anime? = CacheFacade.fetchAnime(infoLink)
@@ -188,11 +188,11 @@ class OfflineDatabaseIntegrationTest : Spek({
             }
 
             it("must contain the correct related anime") {
-                assertThat(result.contains(InfoLink("${NORMALIZED_ANIME_DOMAIN.ANIDB.value}8147"))).isTrue()
+                assertThat(result.contains(InfoLink("${ANIDB.url}8147"))).isTrue()
             }
 
             it("must contain the correct related anime") {
-                assertThat(result.contains(InfoLink("${NORMALIZED_ANIME_DOMAIN.ANIDB.value}8146"))).isTrue()
+                assertThat(result.contains(InfoLink("${ANIDB.url}8146"))).isTrue()
             }
         }
     }

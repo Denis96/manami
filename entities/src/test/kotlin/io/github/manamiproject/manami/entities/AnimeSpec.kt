@@ -1,5 +1,6 @@
 package io.github.manamiproject.manami.entities
 
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.assertj.core.api.Assertions.assertThat
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
@@ -12,7 +13,7 @@ class AnimeSpec : Spek({
             lateinit var anime: Anime
 
             Given("A valid Anime created using mandatory parameter only.") {
-                anime = Anime("Death Note", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"))
+                anime = Anime("Death Note", InfoLink("${MAL.url}1535"))
             }
 
             When("Setting the amount of episodes to an invalid value") {
@@ -38,7 +39,7 @@ class AnimeSpec : Spek({
             lateinit var anime: Anime
 
             Given("A valid Anime with 4 episodes") {
-                anime = Anime("Death Note", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"), 4)
+                anime = Anime("Death Note", InfoLink("${MAL.url}1535"), 4)
             }
 
             When("Setting the number of episodes to an invalid value") {
@@ -60,7 +61,7 @@ class AnimeSpec : Spek({
 
 
         Scenario("An Anime with an empty title") {
-            val anime = Anime("", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"))
+            val anime = Anime("", InfoLink("${MAL.url}1535"))
 
             var resultIsValid = true
 
@@ -75,7 +76,7 @@ class AnimeSpec : Spek({
 
 
         Scenario("An Anime with a blank title") {
-            val anime = Anime("     ", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"))
+            val anime = Anime("     ", InfoLink("${MAL.url}1535"))
 
             var resultIsValid = true
 
@@ -90,7 +91,7 @@ class AnimeSpec : Spek({
 
 
         Scenario("An Anime with an empty location") {
-            val anime = Anime("Death Note", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")).apply {
+            val anime = Anime("Death Note", InfoLink("${MAL.url}1535")).apply {
                 location = ""
             }
 
@@ -107,7 +108,7 @@ class AnimeSpec : Spek({
 
 
         Scenario("An Anime with a blank location") {
-            val anime = Anime("Death Note", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")).apply {
+            val anime = Anime("Death Note", InfoLink("${MAL.url}1535")).apply {
                 location = "   "
             }
 

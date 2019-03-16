@@ -2,12 +2,9 @@ package io.github.manamiproject.manami.cache
 
 
 /**
- * The cache holds various anime data.
+ * The cache holds anime meta data.
  */
 interface Cache : AnimeFetcher {
 
-  /**
-   * Invalidates all caches.
-   */
   fun invalidate()
 }

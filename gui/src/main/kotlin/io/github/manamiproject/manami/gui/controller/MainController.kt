@@ -1,6 +1,6 @@
 package io.github.manamiproject.manami.gui.controller
 
-import io.github.manamiproject.manami.common.extensions.isValidFile
+import io.github.manamiproject.manami.common.extensions.fileExists
 import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.FilterListEntry
@@ -34,7 +34,7 @@ class MainController : Controller() {
 
 
     fun updateFileNameInStageTitle() {
-        when(manami.getCurrentlyOpenedFile().isValidFile()) {
+        when(manami.getCurrentlyOpenedFile().fileExists()) {
             true -> titleProperty.value = "$APPLICATION_NAME - ${manami.getCurrentlyOpenedFile().fileName}"
             false -> titleProperty.value = APPLICATION_NAME
         }
@@ -207,7 +207,7 @@ class MainController : Controller() {
 
     fun isFileUnsaved() = manami.isFileUnsaved()
 
-    fun isOpenedFileValid() = manami.getCurrentlyOpenedFile().isValidFile()
+    fun isOpenedFileValid() = manami.getCurrentlyOpenedFile().fileExists()
 
     fun search(searchString: String) {
         runAsync {

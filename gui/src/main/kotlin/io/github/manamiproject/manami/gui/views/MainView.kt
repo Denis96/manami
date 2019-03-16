@@ -1,6 +1,6 @@
 package io.github.manamiproject.manami.gui.views
 
-import io.github.manamiproject.manami.common.extensions.isValidFile
+import io.github.manamiproject.manami.common.extensions.fileExists
 import io.github.manamiproject.manami.gui.components.FileChoosers.showExportDialog
 import io.github.manamiproject.manami.gui.components.FileChoosers.showImportFileDialog
 import io.github.manamiproject.manami.gui.components.FileChoosers.showOpenFileDialog
@@ -33,12 +33,9 @@ import javafx.event.EventHandler
 import javafx.scene.Parent
 import javafx.scene.control.*
 import javafx.stage.Stage
-import org.controlsfx.control.textfield.TextFields
 import org.controlsfx.control.textfield.TextFields.bindAutoCompletion
 import tornadofx.View
 import tornadofx.action
-import tornadofx.observableList
-import tornadofx.onChange
 import java.nio.file.Path
 import java.nio.file.Paths
 
@@ -178,7 +175,7 @@ class MainView : View() {
 
     fun open() {
         showOpenFileDialog(primaryStage)?.let {
-            if(it.isValidFile()) {
+            if(it.fileExists()) {
                 checkFileSavedContext {
                     mainController.open(it)
                     //TODO: clear everything

@@ -3,6 +3,7 @@ package io.github.manamiproject.manami.cache.remoteretrieval.headlessbrowser
 import io.github.manamiproject.manami.cache.remoteretrieval.headlessbrowser.strategies.SimpleUrlConnectionStrategy
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -12,7 +13,7 @@ import org.jetbrains.spek.api.dsl.on
 object HeadlessBrowserStrategiesSpec : Spek({
 
     given("a mal infolink") {
-        val infoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+        val infoLink = InfoLink("${MAL.url}1535")
 
         on("getting a headless browser for this infolink") {
             val result: HeadlessBrowser? = HeadlessBrowserStrategies.getHeadlessBrowserFor(infoLink)
@@ -28,7 +29,7 @@ object HeadlessBrowserStrategiesSpec : Spek({
     }
 
     given("a anidb infolink") {
-        val infoLink = InfoLink("${NormalizedAnimeBaseUrls.ANIDB.value}13248")
+        val infoLink = InfoLink("${ANIDB.url}13248")
 
         on("getting a headless browser for this infolink") {
             val result: HeadlessBrowser? = HeadlessBrowserStrategies.getHeadlessBrowserFor(infoLink)

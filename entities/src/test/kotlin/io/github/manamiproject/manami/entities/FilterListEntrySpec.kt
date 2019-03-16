@@ -1,5 +1,6 @@
 package io.github.manamiproject.manami.entities
 
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.assertj.core.api.Assertions.assertThat
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
@@ -15,7 +16,7 @@ class FilterListEntrySpec : Spek({
             Given("A valid Anime with all parameters provided") {
                 anime = Anime(
                         "Death Note",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                        InfoLink("${MAL.url}1535"),
                         37,
                         AnimeType.TV,
                         "/anime/series/death_note",
@@ -44,7 +45,7 @@ class FilterListEntrySpec : Spek({
             Given("A valid WatchListEntry with all parameters provided") {
                 watchListEntry = WatchListEntry(
                         "Death Note",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                        InfoLink("${MAL.url}1535"),
                         URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
                 )
             }

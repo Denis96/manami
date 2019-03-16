@@ -1,6 +1,7 @@
 package io.github.manamiproject.manami.core.commands
 
 import io.github.manamiproject.manami.entities.*
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -14,7 +15,7 @@ object CmdChangeThumbnailSpec : Spek({
         val thumbnail = URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
         val anime = Anime(
                 "Death Note",
-        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+        InfoLink("${MAL.url}1535"),
         location = "/deathnote"
         )
 
@@ -40,7 +41,7 @@ object CmdChangeThumbnailSpec : Spek({
         val thumbnail = URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
         val filterListEntry = FilterListEntry(
             "Death Note",
-            InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+            InfoLink("${MAL.url}1535")
         )
 
         val persistenceMock = PersistenceMockCreatorForCommandSpecs.createFilterListPersistenceMock()
@@ -65,7 +66,7 @@ object CmdChangeThumbnailSpec : Spek({
         val thumbnail = URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
         val watchListEntry = WatchListEntry(
             "Death Note",
-            InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+            InfoLink("${MAL.url}1535")
         )
 
         val persistenceMock = PersistenceMockCreatorForCommandSpecs.createWatchListPersistenceMock()

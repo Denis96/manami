@@ -92,11 +92,11 @@ import static com.google.common.collect.Lists.newArrayList;
 //  }
 //
 //
-//  private void showProgressControls(final boolean value) {
+//  private void showProgressControls(final boolean url) {
 //    Platform.runLater(() -> {
-//      vBoxProgress.setVisible(value);
-//      btnCancel.setVisible(value);
-//      btnStart.setVisible(!value);
+//      vBoxProgress.setVisible(url);
+//      btnCancel.setVisible(url);
+//      btnStart.setVisible(!url);
 //    });
 //  }
 //

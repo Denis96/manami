@@ -1,13 +1,11 @@
 package io.github.manamiproject.manami
 
 import io.github.manamiproject.manami.common.EventBus
-import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.gui.events.EventDispatcher
-import io.github.manamiproject.manami.gui.views.SplashScreenView
+import io.github.manamiproject.manami.gui.views.MainView
 import javafx.application.Application
 import javafx.stage.Stage
 import tornadofx.App
-import tornadofx.runAsync
 
 
 fun main(vararg args: String) {
@@ -16,13 +14,9 @@ fun main(vararg args: String) {
 }
 
 
-class Main : App(SplashScreenView::class) {
+class Main : App(MainView::class) {
 
     override fun start(stage: Stage) {
         super.start(stage)
-
-        runAsync {
-            Manami
-        }
     }
 }

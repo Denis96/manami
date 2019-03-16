@@ -2,6 +2,7 @@ package io.github.manamiproject.manami.cache.remoteretrieval.extractor.anime.mal
 
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.anime.AnimeExtractor
 import io.github.manamiproject.manami.entities.*
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.cyberneko.html.parsers.DOMParser
 import org.xml.sax.InputSource
 import java.io.StringReader
@@ -40,7 +41,7 @@ class MalAnimeExtractor : AnimeExtractor {
     }
 
 
-    override fun isResponsible(infoLink: InfoLink) = infoLink.toString().startsWith(NormalizedAnimeBaseUrls.MAL.value)
+    override fun isResponsible(infoLink: InfoLink) = infoLink.toString().startsWith(MAL.url)
 
 
     private fun extractTitle(): String {

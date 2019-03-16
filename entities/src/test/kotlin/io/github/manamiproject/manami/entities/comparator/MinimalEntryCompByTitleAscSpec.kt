@@ -2,6 +2,7 @@ package io.github.manamiproject.manami.entities.comparator
 
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import io.github.manamiproject.manami.entities.WatchListEntry
 import org.assertj.core.api.Assertions.assertThat
 import org.spekframework.spek2.Spek
@@ -18,13 +19,13 @@ class MinimalEntryCompByTitleAscSpec : Spek({
 
             Given("Two different and valid WatchListEntries having titles starting with different letters") {
                 gintama = WatchListEntry("Gintama",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}28977"),
+                        InfoLink("${MAL.url}28977"),
                         URL("https://myanimelist.cdn-dena.com/images/anime/3/72078t.jpg")
                 )
 
                 steinsGate = WatchListEntry(
                         "Steins;Gate",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}9253"),
+                        InfoLink("${MAL.url}9253"),
                         URL("https://myanimelist.cdn-dena.com/images/anime/5/73199t.jpg")
                 )
             }
@@ -65,12 +66,12 @@ class MinimalEntryCompByTitleAscSpec : Spek({
             Given("A valid WatchListEntry and a WatchListEntry with blank title") {
                 deathNote = WatchListEntry(
                         "Death Note",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                        InfoLink("${MAL.url}1535"),
                         URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
                 )
 
                 entryWithEmptTitle = WatchListEntry("",
-                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}33352"),
+                        InfoLink("${MAL.url}33352"),
                         URL("https://myanimelist.cdn-dena.com/images/anime/11/89398t.jpg")
                 )
             }

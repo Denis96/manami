@@ -4,6 +4,7 @@ import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCom
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -17,7 +18,7 @@ object CmdChangeLocationSpec : Spek({
         val newValue = "/death_note"
         val anime = Anime(
                 "Death Note",
-                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                InfoLink("${MAL.url}1535"),
                 location = "/deathnote"
         )
 
@@ -44,7 +45,7 @@ object CmdChangeLocationSpec : Spek({
         val newValue = "/deathnote"
         val anime = Anime(
                 "Death Note",
-                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                InfoLink("${MAL.url}1535"),
                 location = "/death_note"
         )
 
@@ -58,7 +59,7 @@ object CmdChangeLocationSpec : Spek({
         on("undo command") {
             cmdChangeLocation.undo()
 
-            it("must restore the initial value in persistence") {
+            it("must restore the initial url in persistence") {
                 assertThat(persistenceMock.fetchAnimeList()[0].location).isEqualTo(anime.location)
             }
         }

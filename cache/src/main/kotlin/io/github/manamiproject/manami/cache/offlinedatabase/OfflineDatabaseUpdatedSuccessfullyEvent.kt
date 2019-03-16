@@ -1,3 +1,0 @@
-package io.github.manamiproject.manami.cache.offlinedatabase
-
-object OfflineDatabaseUpdatedSuccessfullyEvent

@@ -5,6 +5,7 @@ import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -35,7 +36,7 @@ object MalAnimeExtractorSpec : Spek({
             }
 
             it("must contain the correct infolink") {
-                assertThat(extractedAnime?.infoLink).isEqualTo(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"))
+                assertThat(extractedAnime?.infoLink).isEqualTo(InfoLink("${MAL.url}1535"))
             }
 
             it("must extract the correct type") {
@@ -73,7 +74,7 @@ object MalAnimeExtractorSpec : Spek({
             }
 
             it("must contain the correct infolink") {
-                assertThat(extractedAnime?.infoLink).isEqualTo(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}34240"))
+                assertThat(extractedAnime?.infoLink).isEqualTo(InfoLink("${MAL.url}34240"))
             }
 
             it("must extract the correct type") {
@@ -95,7 +96,7 @@ object MalAnimeExtractorSpec : Spek({
     }
 
     given("a valid MAL infolink") {
-        val infoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+        val infoLink = InfoLink("${MAL.url}1535")
 
         on("checking responsibility") {
             val result: Boolean = malAnimeExtractor.isResponsible(infoLink)
@@ -107,7 +108,7 @@ object MalAnimeExtractorSpec : Spek({
     }
 
     given("a valid ANIDB infolink") {
-        val infoLink = InfoLink("${NormalizedAnimeBaseUrls.ANIDB.value}4563")
+        val infoLink = InfoLink("${ANIDB.url}4563")
 
         on("checking responsibility") {
             val result: Boolean = malAnimeExtractor.isResponsible(infoLink)

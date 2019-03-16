@@ -102,13 +102,13 @@ package io.github.manamiproject.manami.gui.controller;
 //  /**
 //   * Shows the progress components and hides the start button or the other way round.
 //   *
-//   * @param value Shows the progress components if the value is true and hides the start button.
+//   * @param url Shows the progress components if the url is true and hides the start button.
 //   */
-//  private void showProgressControls(final boolean value) {
+//  private void showProgressControls(final boolean url) {
 //    Platform.runLater(() -> {
-//      vBoxProgress.setVisible(value);
-//      btnCancel.setVisible(value);
-//      btnStart.setVisible(!value);
+//      vBoxProgress.setVisible(url);
+//      btnCancel.setVisible(url);
+//      btnStart.setVisible(!url);
 //    });
 //  }
 //

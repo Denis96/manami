@@ -1,5 +1,6 @@
 package io.github.manamiproject.manami.entities
 
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls.*
 import org.assertj.core.api.Assertions.assertThat
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
@@ -30,7 +31,7 @@ class RecommendationListSpec : Spek({
                 assertThat(recommendationList).hasSize(0)
             }
 
-            val infoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+            val infoLink = InfoLink("${MAL.url}1535")
             val recommendation = Recommendation(infoLink, 103)
 
             When("Adding a new recommendation") {
@@ -58,7 +59,7 @@ class RecommendationListSpec : Spek({
             When("Checking if the list contains a Recommendation") {
                 resultContainsRecommendation = recommendationList.contains(
                         Recommendation(
-                                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
+                                InfoLink("${MAL.url}1535"),
                                 231
                         )
                 )
@@ -70,7 +71,7 @@ class RecommendationListSpec : Spek({
         }
 
         Scenario("A recommendation list containing one recommendation") {
-            val infoLinkUrl = "${NormalizedAnimeBaseUrls.MAL.value}1535"
+            val infoLinkUrl = "${MAL.url}1535"
             val initialValue = 5
             val recommendationList by memoized { RecommendationList().apply {
                 addRecommendation(
@@ -142,7 +143,7 @@ class RecommendationListSpec : Spek({
                                         initialValue
                                 ),
                                 Recommendation(
-                                        InfoLink("${NormalizedAnimeBaseUrls.MAL.value}35180"),
+                                        InfoLink("${MAL.url}35180"),
                                         5
                                 )
                         )
