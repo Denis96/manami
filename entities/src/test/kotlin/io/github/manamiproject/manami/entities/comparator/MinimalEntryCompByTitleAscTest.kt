@@ -6,7 +6,7 @@ import io.github.manamiproject.manami.entities.WatchListEntry
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class MinimalEntryCompByTitleAscSpec {
+class MinimalEntryCompByTitleAscTest {
 
     @Test
     fun `two different and valid WatchListEntries having titles starting with different letters - Must return a greater than 0 to indicate that Steinsgate comes after Gintama`() {

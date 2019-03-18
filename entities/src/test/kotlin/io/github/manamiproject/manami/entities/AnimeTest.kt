@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.net.URL
 
-class AnimeSpec {
+class AnimeTest {
 
     @Nested
     inner class EpisodeTests {
