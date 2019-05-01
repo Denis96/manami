@@ -11,20 +11,19 @@ import javafx.concurrent.WorkerStateEvent
 import javafx.event.EventHandler
 import javafx.scene.Parent
 import javafx.scene.control.Button
+import javafx.scene.control.TabPane
 import javafx.scene.control.TextField
 import javafx.scene.input.Clipboard
 import org.controlsfx.validation.ValidationResult
 import org.controlsfx.validation.ValidationSupport
 import org.controlsfx.validation.Validator
-import tornadofx.ChangeListener
-import tornadofx.Fragment
-import tornadofx.isInt
-import tornadofx.runLater
+import tornadofx.*
 
 private const val DEFAULT_EPISODES = "1"
 
-class NewEntryView : Fragment() {
-    override val root: Parent by fxml()
+class NewEntryView : View() {
+
+    override val root = TabPane()
 
     private var animeTypeIndex = SimpleIntegerProperty(0)
 
